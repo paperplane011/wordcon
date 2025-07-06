@@ -1,0 +1,4 @@
+repository "wordcon/wordcon@10170610108996@cloud"
+  path "/"
+    br "/main"
+    co "/main"
