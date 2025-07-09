@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(EventTrigger))]
-public class HoverChecker : MonoBehaviour
+public class HoverChecker : MonoBehaviour // checks if cursor is hovered upon this gameobject (canvas)
 {
 
     private EventTrigger _eventTrigger;
