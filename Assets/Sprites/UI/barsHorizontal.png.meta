@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: fa0cc79f36da7694ca33513157cf2172
+guid: bb7ea472606fbbe45aad3d2d4a9798dc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8072561270893511689
-    second: button_square_depth_gradient_0
+      213: 6542990584870916783
+    second: barsHorizontal_0
+  - first:
+      213: -8047907275510552056
+    second: barsHorizontal_1
+  - first:
+      213: -6738075093876405449
+    second: barsHorizontal_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +145,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: button_square_depth_gradient_0
+      name: barsHorizontal_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 128
-        height: 128
+        x: 17
+        y: 67
+        width: 74
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +160,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9040f23a4bf770070800000000000000
-      internalID: 8072561270893511689
+      spriteID: fa2d4fb454f5dca50800000000000000
+      internalID: 6542990584870916783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: barsHorizontal_1
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 43
+        width: 74
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80a69e9f8f6105090800000000000000
+      internalID: -8047907275510552056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: barsHorizontal_2
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 19
+        width: 74
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73b0797e66c8d72a0800000000000000
+      internalID: -6738075093876405449
       vertices: []
       indices: 
       edges: []
@@ -174,7 +224,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      button_square_depth_gradient_0: 8072561270893511689
+      barsHorizontal_0: 6542990584870916783
+      barsHorizontal_1: -8047907275510552056
+      barsHorizontal_2: -6738075093876405449
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
