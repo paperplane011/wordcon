@@ -3,11 +3,12 @@ using TMPro;
 using UnityEngine;
 
 
-[RequireComponent(typeof(HoverChecker))]
+[RequireComponent(typeof(HoverChecker), typeof(LetterButtonVisuals))]
 public class LetterButton : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _letterText;
     private HoverChecker _hoverChecker;
+    private LetterButtonVisuals _letterButtonVisuals;
 
     public static Action<char> OnLetterButtonPressed;
 
@@ -20,6 +21,7 @@ public class LetterButton : MonoBehaviour
     private void Awake()
     {
         _hoverChecker = GetComponent<HoverChecker>();
+        _letterButtonVisuals = GetComponent<LetterButtonVisuals>();
     }
 
     void OnEnable()
@@ -35,6 +37,7 @@ public class LetterButton : MonoBehaviour
     private void ResetButton()
     {
         _isButtonUsed = false;
+        _letterButtonVisuals.ButtonResetBehaviour();
     }
 
     public void SetButtonChar(char newChar)
@@ -50,14 +53,14 @@ public class LetterButton : MonoBehaviour
 
     void Update()
     {
+        // button clicked
         if (!_isButtonUsed && _hoverChecker.IsCursorHovered && Input.GetMouseButton(0))
         {
             OnLetterButtonPressed?.Invoke(ButtonChar);
+            _letterButtonVisuals.ButtonClickedBehaviour();
             _isButtonUsed = true;
+
         }
-
-
-
     }
 
 

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8205028217852449937}
   - component: {fileID: 6092413175555608269}
   - component: {fileID: 1212711662986573314}
-  - component: {fileID: 5073154791430038265}
   - component: {fileID: 6096762563660974579}
   - component: {fileID: 1206839705564624154}
+  - component: {fileID: 4610229734910599857}
   m_Layer: 5
   m_Name: LetterButton
   m_TagString: Untagged
@@ -93,50 +93,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _letterText: {fileID: 5298250001090677897}
---- !u!114 &5073154791430038265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4605886593421514732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 6092413175555608269}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &6096762563660974579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +118,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8d2a3926b32904e807f7a0e0603e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4610229734910599857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4605886593421514732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f7bb1b76306240975e985618f9a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 6092413175555608269}
+  _clickedButtonSprite: {fileID: 21300000, guid: 91e63ffc9737eca4bad9787950577100, type: 3}
+  _notClickedButtonSprite: {fileID: 21300000, guid: 0af8bb667b469854cbb760d13559ff42, type: 3}
 --- !u!1 &8608644343711977752
 GameObject:
   m_ObjectHideFlags: 0
