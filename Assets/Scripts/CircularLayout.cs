@@ -13,7 +13,6 @@ public class CircularLayout : MonoBehaviour
         UpdateLayout();
     }
 
-    [ContextMenu("Update Layout")]
     public void UpdateLayout()
     {
         List<Transform> children = new List<Transform>();
