@@ -17,7 +17,7 @@ public class SquareVisuals : MonoBehaviour
 
 
 
-    public void SetSprite(bool isEmpty, string letter, bool isLetterGuessed)
+    public void UpdateVisuals(bool isEmpty, string letter, bool isLetterGuessed)
     {
         if (isEmpty)
         {

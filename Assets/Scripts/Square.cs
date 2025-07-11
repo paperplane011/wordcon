@@ -7,7 +7,7 @@ public class Square : MonoBehaviour
 {
 
     [OnValueChanged("OnEmptyChanged")]
-    [SerializeField] private bool _isEmpty = false;
+    [SerializeField] public bool _isEmpty = false;
 
     [HideIf("_isEmpty")]
     [OnValueChanged("OnLetterChanged")]
@@ -15,7 +15,7 @@ public class Square : MonoBehaviour
 
     [HideIf("_isEmpty")]
     [OnValueChanged("OnIsLetterGuessedChanged")]
-    [SerializeField] private bool _isLetterGuessed;
+    [SerializeField] private bool _isLetterGuessed = false;
 
     private SquareVisuals _squareVisuals;
     public int ID { get; private set; }
@@ -52,7 +52,7 @@ public class Square : MonoBehaviour
 
     private void UpdateVisuals()
     {
-        _squareVisuals.SetSprite(_isEmpty, _letter, _isLetterGuessed);
+        _squareVisuals.UpdateVisuals(_isEmpty, _letter, _isLetterGuessed);
     }
 
     private void OnLetterChanged()
@@ -70,6 +70,15 @@ public class Square : MonoBehaviour
         UpdateVisuals();
     }
 
+    public bool GetIsEmpty()
+    {
+        return _isEmpty;
+    }
+
+    public string GetLetter()
+    {
+        return _letter;
+    }
 
 }
 

@@ -1,32 +1,65 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 
 
 public class SquareManager : MonoBehaviour
 {
-    [SerializeField] private int _numToSpawn = 49;
     [SerializeField] private GameObject _squarePrefab;
+    [SerializeField] private LevelLayoutSO _levelLayoutSO;
 
 
     private void Start()
     {
-        for (int i = 0; i < _numToSpawn; i++)
+        SetLayout(_levelLayoutSO.LayoutString);
+
+    }
+
+    private void SetLayout(string layout)
+    {
+        int i = 0;
+        foreach (var c in layout)
         {
             var newSquare = Instantiate(_squarePrefab, transform).GetComponent<Square>();
             newSquare.SetID(i);
+            i++;
 
-            if (i % 2 == 0)
+            if (c == 'q')
             {
-                newSquare.SetEmpty(false);
-                newSquare.SetLetter("П");
+                newSquare.SetEmpty(true);
             }
             else
             {
-                newSquare.SetEmpty(true);
+                newSquare.SetEmpty(false);
+                newSquare.SetLetter(c.ToString());
             }
         }
     }
 
+
+    [Button]
+    private void MakeLevelLayout()
+    {
+        string layout = "";
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Square square = transform.GetChild(i).GetComponent<Square>();
+
+            if (square.GetIsEmpty())
+            {
+                layout += "q";
+            }
+            else
+            {
+                layout += square.GetLetter();
+            }
+        }
+
+        Debug.Log("level layout: " + layout);
+    }
+
+    
 
 
 }
