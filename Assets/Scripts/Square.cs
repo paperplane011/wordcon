@@ -2,13 +2,20 @@ using NaughtyAttributes;
 using UnityEngine;
 
 [RequireComponent(typeof(SquareVisuals))]
+[ExecuteInEditMode]
 public class Square : MonoBehaviour
 {
 
-    [SerializeField] private bool _isEmpty;
+    [OnValueChanged("OnEmptyChanged")]
+    [SerializeField] private bool _isEmpty = false;
 
     [HideIf("_isEmpty")]
+    [OnValueChanged("OnLetterChanged")]
     [SerializeField] private string _letter = "";
+
+    [HideIf("_isEmpty")]
+    [OnValueChanged("OnIsLetterGuessedChanged")]
+    [SerializeField] private bool _isLetterGuessed;
 
     private SquareVisuals _squareVisuals;
     public int ID { get; private set; }
@@ -21,7 +28,7 @@ public class Square : MonoBehaviour
 
     private void Start()
     {
-        _squareVisuals.SetSprite(_isEmpty, _letter);
+        UpdateVisuals();
     }
 
 
@@ -42,12 +49,26 @@ public class Square : MonoBehaviour
         UpdateVisuals();
     }
 
+
     private void UpdateVisuals()
     {
-        _squareVisuals.SetSprite(_isEmpty, _letter);
+        _squareVisuals.SetSprite(_isEmpty, _letter, _isLetterGuessed);
     }
 
+    private void OnLetterChanged()
+    {
+        UpdateVisuals();
+    }
 
+    private void OnEmptyChanged()
+    {
+        UpdateVisuals();
+    }
+
+    private void OnIsLetterGuessedChanged()
+    {
+        UpdateVisuals();
+    }
 
 
 }

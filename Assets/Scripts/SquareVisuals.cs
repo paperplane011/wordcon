@@ -17,7 +17,7 @@ public class SquareVisuals : MonoBehaviour
 
 
 
-    public void SetSprite(bool isEmpty, string letter)
+    public void SetSprite(bool isEmpty, string letter, bool isLetterGuessed)
     {
         if (isEmpty)
         {
@@ -26,7 +26,17 @@ public class SquareVisuals : MonoBehaviour
         }
 
         _image.sprite = _letterSprite;
-        _text.text = letter;
+
+        if (isLetterGuessed)
+        {
+            _text.text = letter;
+        }
+        else
+        {
+            _text.text = "";
+        }
+
+        
     }
 
 }
