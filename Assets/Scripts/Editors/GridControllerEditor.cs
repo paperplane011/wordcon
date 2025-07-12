@@ -5,8 +5,8 @@ using UnityEngine;
 [CustomEditor(typeof(LevelSO))]
 public class GridControllerEditor : Editor
 {
-    private const float CellSize = 30f;
-    private const float Padding = 1f;
+    private const float CellSize = 34f;
+    private const float Padding = 12f;
     
     public override void OnInspectorGUI()
     {
@@ -15,7 +15,7 @@ public class GridControllerEditor : Editor
         DrawDefaultInspector();
         
         EditorGUILayout.Space(10);
-        EditorGUILayout.LabelField("Char Grid Editor", EditorStyles.boldLabel);
+        
         
         // Получаем доступ к данным сетки
         SerializedProperty gridProp = serializedObject.FindProperty("LayoutString");
@@ -42,13 +42,13 @@ public class GridControllerEditor : Editor
         char[] gridChars = gridData.ToCharArray();
         bool modified = false;
         int id = 0;
-        
+
         for (int y = 0; y < CharGrid.Size; y++)
         {
             EditorGUILayout.BeginHorizontal();
             for (int x = 0; x < CharGrid.Size; x++)
             {
-            
+
                 int index = y * CharGrid.Size + x;
                 string currentChar = gridChars[index].ToString();
 
@@ -77,22 +77,42 @@ public class GridControllerEditor : Editor
                     modified = true;
                 }
 
-                // GUIStyle idStyle = new GUIStyle(EditorStyles.miniLabel)
-                // {
-                //     alignment = TextAnchor.MiddleCenter,
-                //     fontSize = 8,
-                //     fontStyle = FontStyle.Italic,
-                //     normal = { textColor = Color.gray }
-                // };
 
-                // EditorGUILayout.LabelField($"{id}", idStyle);
-                // id++;
-                
+
 
 
             }
+
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            
+            for (int k = 0; k < CharGrid.Size; k++)
+            {
+                GUIStyle idStyle = new GUIStyle(EditorStyles.textField)
+                {
+                    alignment = TextAnchor.MiddleCenter,
+                    fontSize = 8,
+                    fontStyle = FontStyle.Italic,
+                    normal = { textColor = Color.gray },
+                    fixedHeight = CellSize / 4,
+                    margin = new RectOffset(0, 0, (int)Padding, (int)Padding),
+                    
+                    
+
+                };
+
+                EditorGUILayout.LabelField($"{id}", idStyle, GUILayout.Width(CellSize-2.6f), GUILayout.Height(1));
+                id++;
+            }
+            
+                
+
             EditorGUILayout.EndHorizontal();
         }
+
+
+
         
         if (modified)
         {

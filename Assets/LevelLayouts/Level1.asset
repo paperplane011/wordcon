@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelNum: 1
   LayoutString:
-    _gridData: "qqqqqqqqqqqqqqqq\u041Fq\u0421qq\u0421\u041F\u041E\u0420\u0422qqqq\u0420q\u0420qqqq\u0422\u0420\u041E\u0421qqqqq\u041Fqq"
+    _gridData: "qqqqqqqqqqqqqqqqq\u041F\u041E\u0420\u0422qqqqqqqq\u0422\u0420\u041E\u041Fqqqqqqqqqqqqqqqq"
