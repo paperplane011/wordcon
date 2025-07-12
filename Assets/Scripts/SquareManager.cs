@@ -6,12 +6,12 @@ using UnityEngine;
 public class SquareManager : MonoBehaviour
 {
     [SerializeField] private GameObject _squarePrefab;
-    [SerializeField] private LevelLayoutSO _levelLayoutSO;
+    [SerializeField] private LevelSO _levelSO;
 
 
     private void Start()
     {
-        SetLayout(_levelLayoutSO.LayoutString);
+        SetLayout(_levelSO.LayoutString.GetGridString());
 
     }
 

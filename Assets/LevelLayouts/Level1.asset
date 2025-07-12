@@ -10,6 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 836232dedd0f7564697930e6d43a9c56, type: 3}
-  m_Name: Layout1
+  m_Name: Level1
   m_EditorClassIdentifier: 
-  LayoutString: "qqqqqqqqqq\u0422qqqqq\u041F\u041E\u0420\u0422qqqq\u0420qqqqqqqqqqqqqqqqqqqqqqqq"
+  LevelNum: 1
+  LayoutString:
+    _gridData: "qqqqqqqqqqqqqqqq\u041Fq\u0421qq\u0421\u041F\u041E\u0420\u0422qqqq\u0420q\u0420qqqq\u0422\u0420\u041E\u0421qqqqq\u041Fqq"
