@@ -24,7 +24,7 @@ public class SquareManager : MonoBehaviour
             newSquare.SetID(i);
             i++;
 
-            if (c == 'q')
+            if (c == ' ')
             {
                 newSquare.SetEmpty(true);
             }
@@ -48,7 +48,7 @@ public class SquareManager : MonoBehaviour
 
             if (square.GetIsEmpty())
             {
-                layout += "q";
+                layout += " ";
             }
             else
             {

@@ -6,7 +6,7 @@ public class CharGrid
     public const int Size = 7;
     
     [SerializeField] 
-    private string _gridData = new string('q', Size * Size);
+    private string _gridData = new string(' ', Size * Size);
     
     public char this[int x, int y]
     {

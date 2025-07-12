@@ -71,9 +71,9 @@ public class GridControllerEditor : Editor
                     gridChars[index] = newChar[0];
                     modified = true;
                 }
-                else if (newChar.Length == 0)
+                else if (newChar == "")
                 {
-                    gridChars[index] = 'q'; // Пустая ячейка
+                    gridChars[index] = ' '; // Пустая ячейка
                     modified = true;
                 }
 
