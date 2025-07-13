@@ -1,9 +1,10 @@
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 [CustomEditor(typeof(LevelSO))]
-public class GridControllerEditor : Editor
+public class LevelSOEditor : Editor
 {
     private const float CellSize = 34f;
     private const float Padding = 12f;
@@ -12,11 +13,18 @@ public class GridControllerEditor : Editor
     {
         serializedObject.Update();
         
-        DrawDefaultInspector();
+        //DrawDefaultInspector();
+
+        SerializedProperty levelNumProp = serializedObject.FindProperty("LevelNum");
+        SerializedProperty levelLettersProp = serializedObject.FindProperty("LevelLetters");
+        SerializedProperty wordsPositionsProp = serializedObject.FindProperty("WordsPositions");
+
+        EditorGUILayout.PropertyField(levelNumProp);
+        EditorGUILayout.PropertyField(levelLettersProp);
+
         
         EditorGUILayout.Space(10);
-        
-        
+
         // Получаем доступ к данным сетки
         SerializedProperty gridProp = serializedObject.FindProperty("LayoutString");
         SerializedProperty dataProp = gridProp.FindPropertyRelative("_gridData");
@@ -32,6 +40,9 @@ public class GridControllerEditor : Editor
         // Визуальная сетка
         EditorGUILayout.Space(10);
         DrawCharGrid(dataProp);
+
+        EditorGUILayout.Space(10);
+        EditorGUILayout.PropertyField(wordsPositionsProp);
         
         serializedObject.ApplyModifiedProperties();
     }

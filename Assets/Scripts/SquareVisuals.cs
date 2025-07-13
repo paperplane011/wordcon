@@ -15,8 +15,6 @@ public class SquareVisuals : MonoBehaviour
     [SerializeField] private Sprite _letterSprite;
 
 
-
-
     public void UpdateVisuals(bool isEmpty, string letter, bool isLetterGuessed)
     {
         if (isEmpty)
@@ -36,7 +34,7 @@ public class SquareVisuals : MonoBehaviour
             _text.text = "";
         }
 
-        
+
     }
 
 }

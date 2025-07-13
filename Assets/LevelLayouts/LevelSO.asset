@@ -16,3 +16,5 @@ MonoBehaviour:
   LayoutString:
     _gridData: "                   \u0422   \u0421\u041F\u041E\u0420\u0422   \u041E
       \u041E    \u0420 \u0421    \u0422   "
+  WordsPositions:
+    m_Keys: []
