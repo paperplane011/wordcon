@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _squarePrefab: {fileID: 1803088261365660180, guid: 5b3047123d6c54349af033a601a7962a, type: 3}
-  _levelSO: {fileID: 11400000, guid: ecd7d9c669bb817439a4cb26251a0aac, type: 2}
+  _levelSO: {fileID: 11400000, guid: 48fa4fa961856a6429940eee2d8af206, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1195,7 +1195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e82e98da17d8341861fdaa32efbcdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputText: {fileID: 1654190612}
+  _inputTextComp: {fileID: 1654190612}
 --- !u!1 &1788744480
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,9 +1442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e688331339955ca4bbeaf6d9aae1dd74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _letterButtonsToSpawn: 5
   _letterButtonGO: {fileID: 4605886593421514732, guid: 7a793899d7e93c74ca2436b36333a265, type: 3}
-  _charsToSpawn: "\u043F\u043E\u0440\u0442\u0441"
 --- !u!114 &2088864538
 MonoBehaviour:
   m_ObjectHideFlags: 0

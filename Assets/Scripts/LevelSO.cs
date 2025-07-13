@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
 
@@ -9,7 +7,7 @@ public class LevelSO : ScriptableObject
     public int LevelNum;
     public string LevelLetters;
 
-    // q - empty square, otherwise - letter
+    // ' ' - empty square, otherwise - letter
     public CharGrid LayoutString;
 
 

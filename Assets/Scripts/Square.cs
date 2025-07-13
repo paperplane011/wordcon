@@ -45,7 +45,13 @@ public class Square : MonoBehaviour
 
     public void SetLetter(string letter)
     {
-        _letter = letter;
+        _letter = letter; 
+        UpdateVisuals();
+    }
+
+    public void SetGuessed(bool isGuessed)
+    {
+        _isLetterGuessed = isGuessed;
         UpdateVisuals();
     }
 

@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class LetterInput : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _inputText;
+    [SerializeField] private TextMeshProUGUI _inputTextComp;
+    private string _inputText;
 
+    public static Action<string> OnWordEnterEndWord;
     public static Action OnWordEnterEnd;
 
     private void Start()
@@ -27,20 +29,25 @@ public class LetterInput : MonoBehaviour
 
     public void AddChar(char c)
     {
-        _inputText.text = _inputText.text + c;
+        _inputText = _inputText + c;
+        _inputTextComp.text = _inputText;
     }
 
     [ContextMenu("reset")]
     public void Reset()
     {
-        _inputText.text = "";
+        _inputText = "";
+        _inputTextComp.text = _inputText;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0) && _inputText.text != "")
+        if (Input.GetMouseButtonUp(0) && _inputText != "")
         {
             // check if word is valid then reset letter buttons
+            
+
+            OnWordEnterEndWord?.Invoke(_inputText);
             OnWordEnterEnd?.Invoke();
             Reset();
 

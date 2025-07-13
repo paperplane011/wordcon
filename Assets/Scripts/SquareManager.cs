@@ -1,13 +1,48 @@
-using NaughtyAttributes;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 
 public class SquareManager : MonoBehaviour
 {
+
+    private static SquareManager _instance;
+
+    public static SquareManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindFirstObjectByType<SquareManager>();
+
+                if (_instance == null)
+                {
+                    GameObject singletonObject = new GameObject(typeof(SquareManager).Name);
+                    _instance = singletonObject.AddComponent<SquareManager>();
+                }
+            }
+            return _instance;
+        }
+    }
+
     [SerializeField] private GameObject _squarePrefab;
     [SerializeField] private LevelSO _levelSO;
 
+    private Dictionary<int, Square> _idToSquareDict = new();
+
+    private void Awake()
+    {
+        // Ensure only one instance exists
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -15,14 +50,25 @@ public class SquareManager : MonoBehaviour
 
     }
 
+    void OnEnable()
+    {
+        LetterInput.OnWordEnterEndWord += CheckIfWordIsValid;
+    }
+
+    void OnDisable()
+    {
+        LetterInput.OnWordEnterEndWord -= CheckIfWordIsValid;
+    }
+
     private void SetLayout(string layout)
     {
-        int i = 0;
+        int id = 0;
         foreach (var c in layout)
         {
             var newSquare = Instantiate(_squarePrefab, transform).GetComponent<Square>();
-            newSquare.SetID(i);
-            i++;
+            newSquare.SetID(id);
+            _idToSquareDict.Add(id, newSquare);
+            id++;
 
             if (c == ' ')
             {
@@ -37,27 +83,38 @@ public class SquareManager : MonoBehaviour
     }
 
 
-    [Button]
-    private void MakeLevelLayout()
+    public void CheckIfWordIsValid(string word)
     {
-        string layout = "";
+        word = word.ToUpper();
 
-        for (int i = 0; i < transform.childCount; i++)
+        int[] ids;
+        if (_levelSO.WordsPositions.TryGetValue(word, out ids))
         {
-            Square square = transform.GetChild(i).GetComponent<Square>();
-
-            if (square.GetIsEmpty())
-            {
-                layout += " ";
-            }
-            else
-            {
-                layout += square.GetLetter();
-            }
+            SetSquaresAsGuessed(ids);
         }
-
-        Debug.Log("level layout: " + layout);
+        else
+        {
+            Debug.Log("No such word: " + word);
+        }
     }
+
+
+    private void SetSquaresAsGuessed(int[] ids)
+    {
+        foreach (var id in ids)
+        {
+            _idToSquareDict[id].SetGuessed(true);
+        }
+    }
+
+
+    public string GetLettersForLetterCircle()
+    {
+        return _levelSO.LevelLetters;
+    }
+
+
+
 
     
 
