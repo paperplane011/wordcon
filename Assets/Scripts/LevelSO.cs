@@ -14,7 +14,10 @@ public class LevelSO : ScriptableObject
     [SerializedDictionary("Word, WordPos")]
     public SerializedDictionary<string, int[]> WordsPositions = new();
 
-
+    public int GetNumOfWords()
+    {
+        return WordsPositions.Keys.Count;
+    }
 
 
 }

@@ -13,7 +13,8 @@ public enum CanvasType
 {
     MainMenu,
     Game,
-    Results
+    Results,
+    LevelsEndInfo
 }
 
 public enum LoadCanvasMode
@@ -68,6 +69,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private CanvasGroup _gameCanvasGroup;
     [SerializeField] private CanvasGroup _mainMenuCanvasGroup;
     [SerializeField] private CanvasGroup _resultsCanvasGroup;
+    [SerializeField] private CanvasGroup _levelsEndInfoCanvasGroup;
 
 
     private void Start()
@@ -91,6 +93,10 @@ public class CanvasManager : MonoBehaviour
         {
             return _resultsCanvasGroup;
         }
+        else if (canvasType == CanvasType.LevelsEndInfo)
+        {
+            return _levelsEndInfoCanvasGroup;
+        }
 
         return _resultsCanvasGroup;
     }
@@ -108,18 +114,33 @@ public class CanvasManager : MonoBehaviour
             EnableCanvasGroup(GetCanvasGroupForCanvasType(canvasType));
         }
 
+        FireEventsAfterLoading(canvasType);
         _activeCanvases.Push(canvasType);
-        
+    }
 
+    private void FireEventsAfterLoading(CanvasType canvasType)
+    {
+        if (canvasType == CanvasType.MainMenu)
+        {
+            CanvasEventBus.OnMainMenuLoaded?.Invoke();
+        }
+        else if (canvasType == CanvasType.Game)
+        {
+            CanvasEventBus.OnGameLoaded?.Invoke();
+        }
+        else if (canvasType == CanvasType.Results)
+        {
+            CanvasEventBus.OnResultsLoaded?.Invoke();
+        }
     }
 
 
     private void DisableAllCanvases()
     {
-        foreach (var canvasType in _activeCanvases)
-        {
-            DisableCanvasGroup(GetCanvasGroupForCanvasType(canvasType));
-        }
+        DisableCanvasGroup(_gameCanvasGroup);
+        DisableCanvasGroup(_mainMenuCanvasGroup);
+        DisableCanvasGroup(_resultsCanvasGroup);
+        DisableCanvasGroup(_levelsEndInfoCanvasGroup);
     }
 
     private void DisableCanvasGroup(CanvasGroup canvasGroup)
@@ -132,6 +153,19 @@ public class CanvasManager : MonoBehaviour
     {
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
+    }
+
+
+    public void GameEndBehaviour()
+    {
+        LoadCanvasGroup(CanvasType.Results, LoadCanvasMode.Additive);
+        CanvasEventBus.OnGameEnd?.Invoke();
+    }
+
+    public void OnLevelsEndBehaviour()
+    {
+        LoadCanvasGroup(CanvasType.LevelsEndInfo, LoadCanvasMode.Additive);
+        CanvasEventBus.OnLevelsEnd?.Invoke();
     }
 
 

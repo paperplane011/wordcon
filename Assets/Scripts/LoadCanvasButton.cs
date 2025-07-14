@@ -28,7 +28,6 @@ public class LoadCanvasButton : MonoBehaviour
 
     private void LoadCanvas()
     {
-        
         CanvasManager.Instance.LoadCanvasGroup(_canvasToLoad, (_additive ? LoadCanvasMode.Additive : LoadCanvasMode.Single));
     }
     

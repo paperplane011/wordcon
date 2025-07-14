@@ -4,6 +4,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using System.Linq;
 
 
 public class LevelManager : MonoBehaviour
@@ -11,8 +12,8 @@ public class LevelManager : MonoBehaviour
     private static LevelManager _instance;
 
     [SerializeField]
-    [ReadOnly]
-    private List<LevelSO> _levels;
+    private List<LevelSO> _levelsList;
+
 
     public static LevelManager Instance
     {
@@ -45,22 +46,42 @@ public class LevelManager : MonoBehaviour
             _instance = this;
         }
     }
+
+    public bool TryGetLevelSOByLevelNum(int levelNum, out LevelSO levelSO)
+    {
+        levelNum--;
+
+        if (levelNum >= _levelsList.Count)
+        {
+            levelSO = null;
+            return false;
+        }
+
+        levelSO = _levelsList[levelNum];
+        return true;
+    }
+
+
+    
+
     
     [Button("Fill Levels List")]
     private void GetAllLevelSOs()
     {
-        _levels = new List<LevelSO>();
+        _levelsList = new();
 
 #if UNITY_EDITOR
         string[] guids = AssetDatabase.FindAssets("t:LevelSO");
-
+        
         foreach (string guid in guids)
-        {
+        {   
+            
             string path = AssetDatabase.GUIDToAssetPath(guid);
-            LevelSO level = AssetDatabase.LoadAssetAtPath<LevelSO>(path);
-            if (level != null)
+            LevelSO levelSO = AssetDatabase.LoadAssetAtPath<LevelSO>(path);
+            if (levelSO != null)
             {
-                _levels.Add(level);
+                _levelsList.Add(levelSO);
+                Debug.Log("level added: " + levelSO.name);
             }
         }
 #endif

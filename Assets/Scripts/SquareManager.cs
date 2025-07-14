@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,9 +28,12 @@ public class SquareManager : MonoBehaviour
     }
 
     [SerializeField] private GameObject _squarePrefab;
-    [SerializeField] private LevelSO _levelSO;
+    private LevelSO _levelSO;
+    public Action OnLevelSOSetupped;
 
-    private Dictionary<int, Square> _idToSquareDict = new();
+    private Dictionary<int, Square> _idToSquareDict;
+    private List<GameObject> _spawnedSquaresList = new();
+    private int _numOfWords;
 
     private void Awake()
     {
@@ -44,28 +48,47 @@ public class SquareManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        SetLayout(_levelSO.LayoutString.GetGridString());
-
-    }
 
     void OnEnable()
     {
         LetterInput.OnWordEnterEndWord += CheckIfWordIsValid;
+        CanvasEventBus.OnGameLoaded += OnGameLoadedBehaviour;
     }
 
     void OnDisable()
     {
         LetterInput.OnWordEnterEndWord -= CheckIfWordIsValid;
+        CanvasEventBus.OnGameLoaded -= OnGameLoadedBehaviour;
+    }
+
+    private void OnGameLoadedBehaviour()
+    {
+        if (LevelManager.Instance.TryGetLevelSOByLevelNum(PlayerManager.Instance.GetLastLevelNum(), out LevelSO levelSO))
+        {
+            SetupNewLevelSO(levelSO);
+        }
+        else
+        {
+            CanvasManager.Instance.OnLevelsEndBehaviour();
+        }
+
     }
 
     private void SetLayout(string layout)
     {
         int id = 0;
+        _idToSquareDict = new();
+        _idToSquareDict.Clear();
+
+        DeleteExistingSquares();
+
         foreach (var c in layout)
         {
-            var newSquare = Instantiate(_squarePrefab, transform).GetComponent<Square>();
+            GameObject newSquareGO = Instantiate(_squarePrefab, transform);
+            _spawnedSquaresList.Add(newSquareGO);
+
+            Square newSquare = newSquareGO.GetComponent<Square>();
+
             newSquare.SetID(id);
             _idToSquareDict.Add(id, newSquare);
             id++;
@@ -82,6 +105,26 @@ public class SquareManager : MonoBehaviour
         }
     }
 
+    private void DeleteExistingSquares()
+    {
+        if (_spawnedSquaresList.Count == 0) return;
+        foreach (var square in _spawnedSquaresList)
+        {
+            Destroy(square);
+        }
+        _spawnedSquaresList.Clear();
+    }
+
+    public void SetupNewLevelSO(LevelSO levelSO)
+    {
+        _levelSO = levelSO;
+
+        SetLayout(_levelSO.LayoutString.GetGridString());
+        _numOfWords = _levelSO.GetNumOfWords();
+
+        OnLevelSOSetupped?.Invoke();
+    }
+
 
     public void CheckIfWordIsValid(string word)
     {
@@ -91,6 +134,12 @@ public class SquareManager : MonoBehaviour
         if (_levelSO.WordsPositions.TryGetValue(word, out ids))
         {
             SetSquaresAsGuessed(ids);
+            _numOfWords--;
+
+            if (_numOfWords == 0)
+            {
+                CanvasManager.Instance.GameEndBehaviour();
+            }
         }
         else
         {
