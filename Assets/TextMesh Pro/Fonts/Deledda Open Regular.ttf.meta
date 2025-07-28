@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3ea608fedf618ff4a8534f29c262fce6
+guid: 14bf74aeb2d55964595e76dbf0417fa9
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Dimkin
+  - Deledda Open
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

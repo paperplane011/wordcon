@@ -60,6 +60,7 @@ public class LetterButton : MonoBehaviour
             _letterButtonVisuals.ButtonClickedBehaviour();
             _isButtonUsed = true;
 
+
         }
     }
 

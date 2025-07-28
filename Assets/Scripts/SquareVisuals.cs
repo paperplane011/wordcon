@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using FronkonGames.TinyTween;
 
 
 public class SquareVisuals : MonoBehaviour
@@ -11,27 +11,46 @@ public class SquareVisuals : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _text;
 
-    [SerializeField] private Sprite _emptySprite;
-    [SerializeField] private Sprite _letterSprite;
-
+    [SerializeField] private Color _emptySquareColor;
+    [SerializeField] private Color _letterSquareNotGuessedColor;
+    private Color _letterSquareGuessedColor = Color.white;
+    
 
     public void UpdateVisuals(bool isEmpty, string letter, bool isLetterGuessed)
     {
         if (isEmpty)
         {
-            _image.sprite = _emptySprite;
+            _image.color = _emptySquareColor;
             return;
         }
 
-        _image.sprite = _letterSprite;
+
 
         if (isLetterGuessed)
         {
             _text.text = letter;
+
+            TweenColor.Create()
+            .Origin(_image.color)
+            .Destination(_letterSquareGuessedColor)
+            .Easing(Ease.Quad)
+            .Owner(this)
+            .Duration(0.9f)
+            .OnUpdate(tween => _image.color = tween.Value)
+            .Start();
         }
         else
         {
             _text.text = "";
+
+            TweenColor.Create()
+            .Origin(_image.color)
+            .Destination(_letterSquareNotGuessedColor)
+            .Easing(Ease.Sine)
+            .Owner(this)
+            .Duration(1f)
+            .OnUpdate(tween => _image.color = tween.Value)
+            .Start();
         }
 
 

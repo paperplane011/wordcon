@@ -35,4 +35,6 @@ public class CircularLayout : MonoBehaviour
             children[i].localPosition = pos;
         }
     }
+
+    
 }

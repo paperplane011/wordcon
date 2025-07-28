@@ -61,15 +61,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: fa0cc79f36da7694ca33513157cf2172, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: 664631971345917810}
   _text: {fileID: 4782454609704349285}
-  _emptySprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-  _letterSprite: {fileID: 21300000, guid: fa0cc79f36da7694ca33513157cf2172, type: 3}
+  _emptySquareColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
+  _letterSquareNotGuessedColor: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
 --- !u!114 &3575855819669864806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,8 +176,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3800525475eb4fb499ac7d4de72dec56, type: 2}
-  m_sharedMaterial: {fileID: 1674013460197601293, guid: 3800525475eb4fb499ac7d4de72dec56, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0ccc5ec98cbc81e45aba5e7f47eb6baa, type: 2}
+  m_sharedMaterial: {fileID: 4377263255211565210, guid: 0ccc5ec98cbc81e45aba5e7f47eb6baa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -207,8 +207,8 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_fontStyle: 1
+  m_HorizontalAlignment: 32
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
