@@ -29,13 +29,15 @@ public class LetterCircle : MonoBehaviour
         string letterButtonsToSpawn = SquareManager.Instance.GetLettersForLetterCircle();
         int numOfLettersToSpawn = letterButtonsToSpawn.Length;
 
+        int id = 1;
         for (int i = 0; i < numOfLettersToSpawn; i++)
         {
             var newLetterButtonGO = Instantiate(_letterButtonGO, transform);
             _spawnedLetterButtonsList.Add(newLetterButtonGO);
             var newLetterButton = newLetterButtonGO.GetComponent<LetterButton>();
 
-            newLetterButton.SetID(i);
+            newLetterButton.SetID(id);
+            id++;
             newLetterButton.SetButtonChar(letterButtonsToSpawn[i]);
 
         }

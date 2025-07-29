@@ -35,6 +35,8 @@ public class SquareManager : MonoBehaviour
     private List<GameObject> _spawnedSquaresList = new();
     private int _numOfWords;
 
+    private List<string> _guessedWords = new();
+
     private void Awake()
     {
         // Ensure only one instance exists
@@ -52,16 +54,16 @@ public class SquareManager : MonoBehaviour
     void OnEnable()
     {
         LetterInput.OnWordEnterEndWord += CheckIfWordIsValid;
-        CanvasEventBus.OnGameLoaded += OnGameLoadedBehaviour;
+        CanvasEventBus.OnGameLoaded += OnGameCanvasLoadedBehaviour;
     }
 
     void OnDisable()
     {
         LetterInput.OnWordEnterEndWord -= CheckIfWordIsValid;
-        CanvasEventBus.OnGameLoaded -= OnGameLoadedBehaviour;
+        CanvasEventBus.OnGameLoaded -= OnGameCanvasLoadedBehaviour;
     }
 
-    private void OnGameLoadedBehaviour()
+    private void OnGameCanvasLoadedBehaviour()
     {
         if (LevelManager.Instance.TryGetLevelSOByLevelNum(PlayerManager.Instance.GetLastLevelNum(), out LevelSO levelSO))
         {
@@ -120,7 +122,11 @@ public class SquareManager : MonoBehaviour
         _levelSO = levelSO;
 
         SetLayout(_levelSO.LayoutString.GetGridString());
+        _guessedWords.Clear();
         _numOfWords = _levelSO.GetNumOfWords();
+
+        SoundManager.Instance.Play(SoundManager.SoundInfoName.levelBegin);
+        
 
         OnLevelSOSetupped?.Invoke();
     }
@@ -130,20 +136,32 @@ public class SquareManager : MonoBehaviour
     {
         word = word.ToUpper();
 
+        if (IsWordAlreadyGuessed(word))
+        {
+            Debug.Log("Word " + word + " already guessed!");
+            SoundManager.Instance.Play(SoundManager.SoundInfoName.wordNotGuessed);
+            return;
+        } 
+
         int[] ids;
         if (_levelSO.WordsPositions.TryGetValue(word, out ids))
         {
             SetSquaresAsGuessed(ids);
+            _guessedWords.Add(word);
+
+            SoundManager.Instance.Play(SoundManager.SoundInfoName.wordGuessed);
             _numOfWords--;
 
             if (_numOfWords == 0)
             {
                 CanvasManager.Instance.GameEndBehaviour();
+                SoundManager.Instance.Play(SoundManager.SoundInfoName.levelEnd);
             }
         }
         else
         {
             Debug.Log("No such word: " + word);
+            SoundManager.Instance.Play(SoundManager.SoundInfoName.wordNotGuessed);
         }
     }
 
@@ -160,6 +178,12 @@ public class SquareManager : MonoBehaviour
     public string GetLettersForLetterCircle()
     {
         return _levelSO.LevelLetters;
+    }
+
+
+    public bool IsWordAlreadyGuessed(string word)
+    {
+        return _guessedWords.Contains(word);
     }
 
 
