@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3c2134cfd66623f48ae2fceb1ff4a5e8
+guid: 99250a6dcadea3244b8d53b37c56ec51
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6947868767776500353
-    second: button_round_border_lighter_0
+      213: -5905639833428164242
+    second: icon_circle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 2
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: button_round_border_lighter_0
+      name: icon_circle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 18a695935d9cb6060800000000000000
-      internalID: 6947868767776500353
+      spriteID: e610e156cd3fa0ea0800000000000000
+      internalID: -5905639833428164242
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      button_round_border_lighter_0: 6947868767776500353
+      icon_circle_0: -5905639833428164242
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -61,10 +61,15 @@ public class LevelManager : MonoBehaviour
         return true;
     }
 
+    public int GetLevelCount()
+    {
+        return _levelsList.Count;
+    }
 
-    
 
-    
+
+
+
     [Button("Fill Levels List")]
     private void GetAllLevelSOs()
     {
@@ -72,10 +77,10 @@ public class LevelManager : MonoBehaviour
 
 #if UNITY_EDITOR
         string[] guids = AssetDatabase.FindAssets("t:LevelSO");
-        
+
         foreach (string guid in guids)
-        {   
-            
+        {
+
             string path = AssetDatabase.GUIDToAssetPath(guid);
             LevelSO levelSO = AssetDatabase.LoadAssetAtPath<LevelSO>(path);
             if (levelSO != null)
@@ -86,6 +91,9 @@ public class LevelManager : MonoBehaviour
         }
 #endif
     }
+    
+
+
     
 
 

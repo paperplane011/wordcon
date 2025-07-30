@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
 
 
 
@@ -50,6 +51,16 @@ public class SquareManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (UnityEngine.Input.GetKeyDown(KeyCode.C))
+        {
+            foreach (var word in _levelSO.WordsPositions.Keys)
+            {
+                CheckIfWordIsValid(word);
+            }
+        }
+    }
 
     void OnEnable()
     {

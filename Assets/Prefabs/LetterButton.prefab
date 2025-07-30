@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 6092413175555608269}
-  _clickedButtonSprite: {fileID: 21300000, guid: fdb7678065b1425468b8280884da8716, type: 3}
+  _clickedButtonSprite: {fileID: -8028557831358942340, guid: 2bfc6b0c2f4a155469ee4260fb637fea, type: 3}
   _notClickedButtonSprite: {fileID: 21300000, guid: 43861ff267927cd419b1c0f05a41ae3b, type: 3}
 --- !u!1 &8608644343711977752
 GameObject:
