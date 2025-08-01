@@ -29,6 +29,8 @@ public class SquareManager : MonoBehaviour
     }
 
     [SerializeField] private GameObject _squarePrefab;
+    [SerializeField] private float _pitchMultiplierStep=0.05f;
+    private float _pitchMultiplier = 1f;
     private LevelSO _levelSO;
     public Action OnLevelSOSetupped;
 
@@ -76,7 +78,7 @@ public class SquareManager : MonoBehaviour
 
     private void OnGameCanvasLoadedBehaviour()
     {
-        if (LevelManager.Instance.TryGetLevelSOByLevelNum(PlayerManager.Instance.GetLastLevelNum(), out LevelSO levelSO))
+        if (LevelManager.Instance.TryGetLevelSOByLevelNum(PlayerManager.Instance.GetCurrentLevelNum(), out LevelSO levelSO))
         {
             SetupNewLevelSO(levelSO);
         }
@@ -131,6 +133,7 @@ public class SquareManager : MonoBehaviour
     public void SetupNewLevelSO(LevelSO levelSO)
     {
         _levelSO = levelSO;
+        _pitchMultiplier = 1f;
 
         SetLayout(_levelSO.LayoutString.GetGridString());
         _guessedWords.Clear();
@@ -151,6 +154,7 @@ public class SquareManager : MonoBehaviour
         {
             Debug.Log("Word " + word + " already guessed!");
             SoundManager.Instance.Play(SoundManager.SoundInfoName.wordNotGuessed);
+            
             return;
         } 
 
@@ -160,8 +164,12 @@ public class SquareManager : MonoBehaviour
             SetSquaresAsGuessed(ids);
             _guessedWords.Add(word);
 
-            SoundManager.Instance.Play(SoundManager.SoundInfoName.wordGuessed);
+            
             _numOfWords--;
+
+            if (_numOfWords == 0) _pitchMultiplier = 1f;
+            SoundManager.Instance.Play(SoundManager.SoundInfoName.wordGuessed, _pitchMultiplier);
+            _pitchMultiplier += _pitchMultiplierStep;
 
             if (_numOfWords == 0)
             {
@@ -173,6 +181,7 @@ public class SquareManager : MonoBehaviour
         {
             Debug.Log("No such word: " + word);
             SoundManager.Instance.Play(SoundManager.SoundInfoName.wordNotGuessed);
+            _pitchMultiplier = 1f;
         }
     }
 

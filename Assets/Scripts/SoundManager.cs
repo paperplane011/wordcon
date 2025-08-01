@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public class SoundManager : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class SoundManager : MonoBehaviour
         wordGuessed,
         wordNotGuessed,
         levelBegin,
-        levelEnd
+        levelEnd,
+        letterButtonClicked,
+        progressBarEnd,
+        progressBarStep
     }
 
     [System.Serializable]
@@ -74,15 +78,16 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void Play(SoundInfoName soundName)
+    public void Play(SoundInfoName soundName, float pitchMultiplier = 1f)
     {
         if (soundDictionary.TryGetValue(soundName, out SoundInfo sound))
         {
+            sound.source.pitch = pitchMultiplier;
             sound.source.Play();
         }
         else
         {
-            Debug.LogWarning("Sound not found: " + soundName);
+            UnityEngine.Debug.LogWarning("Sound not found: " + soundName);
         }
     }
 

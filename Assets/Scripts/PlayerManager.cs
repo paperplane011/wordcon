@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -5,7 +6,9 @@ public class PlayerManager : MonoBehaviour
 {
 
     [SerializeField]
-    private int _lastLevelNum; // last played level, needs to be saved in cloud
+    private int _currentLevel; // last played level, needs to be saved in cloud
+
+    public static Action OnFiveLevelsPassed;
 
     private static PlayerManager _instance;
 
@@ -40,7 +43,11 @@ public class PlayerManager : MonoBehaviour
         {
             _instance = this;
         }
+
+        _currentLevel = 1;
     }
+
+    
 
     void OnEnable()
     {
@@ -53,14 +60,19 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    public int GetLastLevelNum()
+    public int GetCurrentLevelNum()
     {
-        return _lastLevelNum;
+        return _currentLevel;
     }
 
     private void GameEndBehaviour()
     {
-        _lastLevelNum++;
+        _currentLevel++;
+
+        if ((_currentLevel-1) % 5 == 0)
+        {
+            OnFiveLevelsPassed?.Invoke();
+        }
     }
 
 

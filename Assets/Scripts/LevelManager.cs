@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
 {
     private static LevelManager _instance;
 
-    [SerializeField]
+    [SerializeField] [ReadOnly]
     private List<LevelSO> _levelsList;
 
 

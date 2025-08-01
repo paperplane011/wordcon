@@ -12,6 +12,10 @@ public class LetterInput : MonoBehaviour
     public static Action<string> OnWordEnterEndWord;
     public static Action OnWordEnterEnd;
 
+    [SerializeField] private float _pitchMultiplierStep=0.1f;
+    private float _pitchMultiplier = 1f;
+    
+
     private void Start()
     {
         Reset();
@@ -31,13 +35,17 @@ public class LetterInput : MonoBehaviour
     {
         _inputText = _inputText + c;
         _inputTextComp.text = _inputText;
+
+        SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked, _pitchMultiplier);
+        _pitchMultiplier += _pitchMultiplierStep;
     }
 
-    [ContextMenu("reset")]
+
     public void Reset()
     {
         _inputText = "";
         _inputTextComp.text = _inputText;
+        _pitchMultiplier = 1f;
     }
 
     private void Update()

@@ -7,6 +7,7 @@ using UnityEngine;
 public class LetterButton : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _letterText;
+    
     private HoverChecker _hoverChecker;
     private LetterButtonVisuals _letterButtonVisuals;
 

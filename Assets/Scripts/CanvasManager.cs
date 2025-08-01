@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using FronkonGames.TinyTween;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 
@@ -64,18 +66,31 @@ public class CanvasManager : MonoBehaviour
     #endregion
 
     [SerializeField] private CanvasType _startCanvasType = CanvasType.MainMenu;
-    private Stack<CanvasType> _activeCanvases = new();
+    [SerializeField] private RectTransform _resultsPanelRectTransform;
+    
 
     [SerializeField] private CanvasGroup _gameCanvasGroup;
     [SerializeField] private CanvasGroup _mainMenuCanvasGroup;
     [SerializeField] private CanvasGroup _resultsCanvasGroup;
     [SerializeField] private CanvasGroup _levelsEndInfoCanvasGroup;
+    
+
+    private CanvasGroup _currentCanvasGroup;
+    private CanvasType _currentCanvasType;
+
+    
 
 
     private void Start()
     {
-        LoadCanvasGroup(_startCanvasType);
+        DisableAllCanvases();
 
+        _currentCanvasGroup = GetCanvasGroupForCanvasType(_startCanvasType);
+        _currentCanvasType = _startCanvasType;
+        _currentCanvasGroup.alpha = 1f;
+        _currentCanvasGroup.interactable = true;
+        _currentCanvasGroup.blocksRaycasts = true;
+        FireEventsAfterLoading(_startCanvasType);
     }
 
 
@@ -107,15 +122,15 @@ public class CanvasManager : MonoBehaviour
         if (mode == LoadCanvasMode.Single)
         {
             DisableAllCanvases();
-            EnableCanvasGroup(GetCanvasGroupForCanvasType(canvasType));
+            EnableCanvasGroupForCanvasType(canvasType);
+            _currentCanvasType = canvasType;
+            FireEventsAfterLoading(canvasType);
         }
         else
         {
-            EnableCanvasGroup(GetCanvasGroupForCanvasType(canvasType));
+            EnableCanvasGroupForCanvasType(canvasType, true);
         }
 
-        FireEventsAfterLoading(canvasType);
-        _activeCanvases.Push(canvasType);
     }
 
     private void FireEventsAfterLoading(CanvasType canvasType)
@@ -149,11 +164,48 @@ public class CanvasManager : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
     }
 
-    private void EnableCanvasGroup(CanvasGroup canvasGroup)
+    private void EnableCanvasGroupForCanvasType(CanvasType canvasType, bool additive = false)
     {
-        canvasGroup.alpha = 1;
+        if (_currentCanvasType == canvasType)
+        {
+            _currentCanvasGroup.alpha = 1f;
+            _currentCanvasGroup.interactable = true;
+            _currentCanvasGroup.blocksRaycasts = true;
+            return;
+        }
+
+        CanvasGroup canvasGroup = GetCanvasGroupForCanvasType(canvasType);
+
+        _currentCanvasGroup.interactable = false;
+        _currentCanvasGroup.blocksRaycasts = false;
+
+        TweenFloat.Create()
+        .Origin(1f)
+        .Destination(0f)
+        .Duration((canvasType == CanvasType.Results) ? TweenSettings.Instance.ResultsCanvasFadeTime : TweenSettings.Instance.DefaultCanvasFadeTime)
+        .OnUpdate(tween => { if (additive) _currentCanvasGroup.alpha = tween.Value;canvasGroup.alpha = 1f - tween.Value; })
+        .OnEnd(tween => {  })
+        .OnEnd(tween => { if (canvasType == CanvasType.Results) FireEventsAfterLoading(canvasType); })
+        .Easing((canvasType == CanvasType.Results) ? Ease.Quint : Ease.Circ)
+        .Start();
+
+        canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
+        if (!additive) _currentCanvasGroup = canvasGroup;
+
+        if (canvasType == CanvasType.Results)
+        {
+            TweenFloat.Create()
+            .Origin(0f)
+            .Destination(-1000f)
+            .Easing(Ease.Circ)
+            .Duration(TweenSettings.Instance.ResultsCanvasFadeTime*1.5f)
+            .OnUpdate(tween => _resultsPanelRectTransform.sizeDelta = new Vector2(_resultsPanelRectTransform.sizeDelta.x, -tween.Value*2))
+            .Start();
+        }
+
     }
+
 
 
     public void GameEndBehaviour()
