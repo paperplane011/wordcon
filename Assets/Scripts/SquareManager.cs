@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FronkonGames.TinyTween;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -29,7 +30,7 @@ public class SquareManager : MonoBehaviour
     }
 
     [SerializeField] private GameObject _squarePrefab;
-    [SerializeField] private float _pitchMultiplierStep=0.05f;
+    [SerializeField] private float _pitchMultiplierStep = 0.05f;
     private float _pitchMultiplier = 1f;
     private LevelSO _levelSO;
     public Action OnLevelSOSetupped;
@@ -38,7 +39,7 @@ public class SquareManager : MonoBehaviour
     private List<GameObject> _spawnedSquaresList = new();
     private int _numOfWords;
 
-    private List<string> _guessedWords = new();
+    private Dictionary<string, bool> _guessedWordsDictionary = new();
 
     private void Awake()
     {
@@ -59,20 +60,20 @@ public class SquareManager : MonoBehaviour
         {
             foreach (var word in _levelSO.WordsPositions.Keys)
             {
-                CheckIfWordIsValid(word);
+                ShowTheWord(word);
             }
         }
     }
 
     void OnEnable()
     {
-        LetterInput.OnWordEnterEndWord += CheckIfWordIsValid;
+        LetterInput.OnWordEnterEndWord += ShowTheWord;
         CanvasEventBus.OnGameLoaded += OnGameCanvasLoadedBehaviour;
     }
 
     void OnDisable()
     {
-        LetterInput.OnWordEnterEndWord -= CheckIfWordIsValid;
+        LetterInput.OnWordEnterEndWord -= ShowTheWord;
         CanvasEventBus.OnGameLoaded -= OnGameCanvasLoadedBehaviour;
     }
 
@@ -136,35 +137,40 @@ public class SquareManager : MonoBehaviour
         _pitchMultiplier = 1f;
 
         SetLayout(_levelSO.LayoutString.GetGridString());
-        _guessedWords.Clear();
+        _guessedWordsDictionary.Clear();
         _numOfWords = _levelSO.GetNumOfWords();
 
+        foreach(string word in _levelSO.WordsPositions.Keys)
+        {
+            _guessedWordsDictionary.Add(word, false);
+        }
+
         SoundManager.Instance.Play(SoundManager.SoundInfoName.levelBegin);
-        
+
 
         OnLevelSOSetupped?.Invoke();
     }
 
 
-    public void CheckIfWordIsValid(string word)
+    public void ShowTheWord(string word)
     {
         word = word.ToUpper();
 
         if (IsWordAlreadyGuessed(word))
         {
             Debug.Log("Word " + word + " already guessed!");
-            SoundManager.Instance.Play(SoundManager.SoundInfoName.wordNotGuessed);
-            
+            SoundManager.Instance.Play(SoundManager.SoundInfoName.wordNotGuessed, 1.2f);
+
             return;
-        } 
+        }
 
         int[] ids;
         if (_levelSO.WordsPositions.TryGetValue(word, out ids))
         {
             SetSquaresAsGuessed(ids);
-            _guessedWords.Add(word);
+            _guessedWordsDictionary[word] = true;
 
-            
+
             _numOfWords--;
 
             if (_numOfWords == 0) _pitchMultiplier = 1f;
@@ -173,8 +179,17 @@ public class SquareManager : MonoBehaviour
 
             if (_numOfWords == 0)
             {
-                CanvasManager.Instance.GameEndBehaviour();
-                SoundManager.Instance.Play(SoundManager.SoundInfoName.levelEnd);
+                TweenFloat.Create()
+                .Origin(0f)
+                .Destination(1f)
+                .Duration(1.5f)
+                .Easing(Ease.Linear)
+                .OnEnd(tween =>
+                {
+                    CanvasManager.Instance.GameEndBehaviour();
+                    SoundManager.Instance.Play(SoundManager.SoundInfoName.levelEnd);
+                })
+                .Start();
             }
         }
         else
@@ -203,7 +218,25 @@ public class SquareManager : MonoBehaviour
 
     public bool IsWordAlreadyGuessed(string word)
     {
-        return _guessedWords.Contains(word);
+        if (_guessedWordsDictionary.ContainsKey(word) && _guessedWordsDictionary[word] == true)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public void ShowRandomWord()
+    {
+        foreach (string word in _guessedWordsDictionary.Keys)
+        {
+            if (_guessedWordsDictionary[word] == false)
+            {
+                ShowTheWord(word);
+                return;
+            }
+        }
     }
 
 

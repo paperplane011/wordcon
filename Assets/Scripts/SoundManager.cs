@@ -78,12 +78,13 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void Play(SoundInfoName soundName, float pitchMultiplier = 1f)
+    public void Play(SoundInfoName soundName, float pitch = 1f)
     {
         if (soundDictionary.TryGetValue(soundName, out SoundInfo sound))
         {
-            sound.source.pitch = pitchMultiplier;
+            sound.source.pitch = pitch;
             sound.source.Play();
+            
         }
         else
         {

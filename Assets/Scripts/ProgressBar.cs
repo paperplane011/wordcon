@@ -1,3 +1,4 @@
+using System;
 using FronkonGames.TinyTween;
 using NaughtyAttributes;
 using UnityEngine;
@@ -5,7 +6,9 @@ using UnityEngine;
 public class ProgressBar : MonoBehaviour
 {
     [SerializeField] private CanvasGroup _nextLevelButtonCanvasGroup;
-    [SerializeField] private BackgroundChanger _backgroundChanger;
+    [SerializeField] private CanvasGroup _hintButtonCanvasGroup;
+
+    public static Action OnProgressBarReset;
 
     [BoxGroup("Selection")]
     [SerializeField] private RectTransform _selectionTransform;
@@ -82,6 +85,7 @@ public class ProgressBar : MonoBehaviour
     private void ResetProgressBar()
     {
         _currentPosNum = 1;
+        OnProgressBarReset?.Invoke();
         _selectionTransform.TweenMove(_pos1.position, TweenSettings.Instance.ProgressBarResetTime, Ease.Quint).OnEnd(tween => ProgressBarArrived(true));
     }
 
@@ -97,12 +101,10 @@ public class ProgressBar : MonoBehaviour
         .Start();
     }
 
-    private void ProgressBarArrived(bool endOfProgressBar = false)
+    private void ProgressBarArrived(bool progressBarReset = false)
     {
         ShowNextLevelButton();
-        
 
-        if(endOfProgressBar) _backgroundChanger.SetNextBackground();
     }
 
 

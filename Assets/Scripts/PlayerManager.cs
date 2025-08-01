@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField]
     private int _currentLevel; // last played level, needs to be saved in cloud
+    private int _hintAmount = 1;
 
     public static Action OnFiveLevelsPassed;
 
@@ -47,16 +48,18 @@ public class PlayerManager : MonoBehaviour
         _currentLevel = 1;
     }
 
-    
+
 
     void OnEnable()
     {
         CanvasEventBus.OnGameEnd += GameEndBehaviour;
+        HintButton.OnHintWithoutAdsUsed += () => _hintAmount--;
     }
 
     void OnDisable()
     {
         CanvasEventBus.OnGameEnd -= GameEndBehaviour;
+        HintButton.OnHintWithoutAdsUsed -= () => _hintAmount--;
     }
 
 
@@ -69,11 +72,18 @@ public class PlayerManager : MonoBehaviour
     {
         _currentLevel++;
 
-        if ((_currentLevel-1) % 5 == 0)
+        if ((_currentLevel - 1) % 5 == 0)
         {
-            OnFiveLevelsPassed?.Invoke();
+            _hintAmount++;
         }
     }
+
+
+    public int GetHintAmount()
+    {
+        return _hintAmount;
+    }
+
 
 
 }

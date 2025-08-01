@@ -33,7 +33,15 @@ public class BackgroundChanger : MonoBehaviour
         _imageCanvasGroup.alpha = 1;
     }
 
-   
+    private void OnEnable()
+    {
+        ProgressBar.OnProgressBarReset += SetNextBackground;
+    }
+
+    private void OnDisable()
+    {
+        ProgressBar.OnProgressBarReset -= SetNextBackground;
+    }
 
 
 

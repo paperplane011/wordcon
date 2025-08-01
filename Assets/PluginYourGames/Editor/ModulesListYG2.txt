@@ -1,0 +1,4 @@
+InterstitialAdv v1.003
+RewardedAdv v1.001
+Authorization v1.022
+PlayerStats v1.01
