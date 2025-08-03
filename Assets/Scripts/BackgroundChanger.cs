@@ -15,8 +15,10 @@ using UnityEditor;
 public class BackgroundChanger : MonoBehaviour
 {
 
-    [SerializeField] private Image _image;
-    [SerializeField] private CanvasGroup _imageCanvasGroup;
+    [SerializeField] private Image _mainImage;
+    [SerializeField] private Image _backImage;
+    [SerializeField] private CanvasGroup _mainImageCanvasGroup;
+    [SerializeField] private CanvasGroup _backImageCanvasGroup;
 
     [SerializeField]
     [ReadOnly]
@@ -29,8 +31,10 @@ public class BackgroundChanger : MonoBehaviour
 
     void Start()
     {
-        _image.sprite = _backgroundsList[_currentBackgroundNum];
-        _imageCanvasGroup.alpha = 1;
+        _mainImage.sprite = _backgroundsList[_currentBackgroundNum];
+        _mainImageCanvasGroup.alpha = 1;
+        
+        
     }
 
     private void OnEnable()
@@ -48,31 +52,23 @@ public class BackgroundChanger : MonoBehaviour
     public void SetNextBackground()
     {
         _currentBackgroundNum++;
+        _backImage.sprite = _backgroundsList[_currentBackgroundNum];
+        
 
         // Fade Out
         TweenFloat.Create()
         .Origin(1f)
         .Destination(0f)
         .Duration(TweenSettings.Instance.ProgressBarResetTime)
-        .Easing(Ease.Sine)
-        .OnUpdate(tween => UpdateBackground(tween.Value))
+        .Easing(Ease.Linear)
+        .OnUpdate(tween => _mainImageCanvasGroup.alpha = tween.Value)
+        .OnEnd(tween =>
+        {
+            _mainImage.sprite = _backgroundsList[_currentBackgroundNum];
+            
+        })
         .Start();
     }
-
-    private void UpdateBackground(float tweenValue)
-    {
-        if (tweenValue <= 0.5f)
-        {
-            _image.sprite = _backgroundsList[_currentBackgroundNum];
-            _imageCanvasGroup.alpha = 1f - tweenValue;
-        }
-        else
-        {
-            _imageCanvasGroup.alpha = tweenValue;
-        }
-        
-    }
-
 
     
     [Button("Fill Backgrounds List")]

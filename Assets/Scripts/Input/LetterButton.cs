@@ -61,7 +61,7 @@ public class LetterButton : MonoBehaviour
             _letterButtonVisuals.ButtonClickedBehaviour();
             _isButtonUsed = true;
 
-            LetterButtonsLineConnector.Instance.EnableLineToButton(ID);
+            LetterButtonsLineConnectorHandler.Instance.EnableLineToButton(ID);
 
 
         }

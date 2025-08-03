@@ -11,21 +11,21 @@ public class LetterCircle : MonoBehaviour
 
     [BoxGroup("5 letters settings")]
     [SerializeField] private float _radius5Letters;
-    
+
     [BoxGroup("5 letters settings")]
     [SerializeField] private float _angleStep5Letters;
 
 
     [BoxGroup("6 letters settings")]
     [SerializeField] private float _radius6Letters;
-    
+
     [BoxGroup("6 letters settings")]
     [SerializeField] private float _angleStep6Letters;
 
 
     [BoxGroup("7 letters settings")]
     [SerializeField] private float _radius7Letters;
-    
+
     [BoxGroup("7 letters settings")]
     [SerializeField] private float _angleStep7Letters;
 
