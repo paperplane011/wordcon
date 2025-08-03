@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836232dedd0f7564697930e6d43a9c56, type: 3}
   m_Name: Level2
   m_EditorClassIdentifier: 
-  LevelNum: 2
+  LevelNum: 1
   LevelLetters: "\u0421\u041B\u041E\u041D\u0410"
   LayoutString:
-    _gridData: "         \u0421\u0410\u041D    \u041E      \u041D\u041E\u0421   
-      \u0410 \u041B      \u041E\u0421\u0410  \u0421\u041E\u041D  "
+    _gridData: "         \u0421\u0410\u041B\u041E   \u0410      \u041D\u041E\u0421     
+      \u041B      \u041E\u0421\u0410  \u0421\u041E\u041D  "
   WordsPositions:
     _serializedList:
     - Key: "\u0421\u0410\u041D"
-      Value: 090000000a0000000b000000
-    - Key: "\u0421\u041E\u041D\u0410"
-      Value: 0900000010000000170000001e000000
+      Value: 090000001000000017000000
+    - Key: "\u0421\u0410\u041B\u041E"
+      Value: 090000000a0000000b0000000c000000
     - Key: "\u041D\u041E\u0421"
       Value: 170000001800000019000000
     - Key: "\u0421\u041B\u041E\u041D"

@@ -13,7 +13,14 @@ public class CircularLayout : MonoBehaviour
         UpdateLayout();
     }
 
-    public void UpdateLayout()
+    public void Set(float radius, float startAngle, float angleStep)
+    {
+        _radius = radius;
+        _startAngle = startAngle;
+        _angleStep = angleStep;
+    }
+
+    private void UpdateLayout()
     {
         List<Transform> children = new List<Transform>();
         foreach (Transform child in transform)

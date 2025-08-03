@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class ProgressBar : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup _nextLevelButtonCanvasGroup;
-    [SerializeField] private CanvasGroup _hintButtonCanvasGroup;
+    [SerializeField] private CanvasGroup[] _CGToShowAfterProgressBarArrived;
 
     public static Action OnProgressBarReset;
 
@@ -30,25 +29,29 @@ public class ProgressBar : MonoBehaviour
     void OnEnable()
     {
         CanvasEventBus.OnResultsLoaded += GoToNextPos;
-        CanvasEventBus.OnGameLoaded += HideNextLevelButton;
+        CanvasEventBus.OnGameLoaded += HideButtons;
     }
 
     void OnDisable()
     {
         CanvasEventBus.OnResultsLoaded -= GoToNextPos;
-        CanvasEventBus.OnGameLoaded -= HideNextLevelButton;
+        CanvasEventBus.OnGameLoaded -= HideButtons;
     }
 
     void Start()
     {
-        HideNextLevelButton();
+        HideButtons();
     }
 
-    private void HideNextLevelButton()
+    private void HideButtons()
     {
+        foreach (var canvasGroup in _CGToShowAfterProgressBarArrived)
+        {
+            
+            canvasGroup.alpha = 0f;
+            canvasGroup.interactable = false;
+        }
 
-        _nextLevelButtonCanvasGroup.alpha = 0f;
-        _nextLevelButtonCanvasGroup.interactable = false;
 
     }
 
@@ -56,8 +59,11 @@ public class ProgressBar : MonoBehaviour
 
     private void GoToNextPos()
     {
-        _nextLevelButtonCanvasGroup.interactable = false;
-        _nextLevelButtonCanvasGroup.alpha = 0f;
+        foreach (var canvasGroup in _CGToShowAfterProgressBarArrived)
+        {  
+            canvasGroup.alpha = 0f;
+            canvasGroup.interactable = false;
+        }
 
         Vector2 newPos = new();
 
@@ -89,21 +95,35 @@ public class ProgressBar : MonoBehaviour
         _selectionTransform.TweenMove(_pos1.position, TweenSettings.Instance.ProgressBarResetTime, Ease.Quint).OnEnd(tween => ProgressBarArrived(true));
     }
 
-    private void ShowNextLevelButton()
+    private void ShowButtons()
     {
         TweenFloat.Create()
         .Origin(0f)
         .Destination(1f)
         .Duration(TweenSettings.Instance.NextLevelButtonFadeInTime)
         .Easing(Ease.Quint)
-        .OnUpdate(tween => _nextLevelButtonCanvasGroup.alpha = tween.Value)
-        .OnEnd(tween => _nextLevelButtonCanvasGroup.interactable = true)
+        .OnUpdate(tween =>
+        {
+            foreach (var canvasGroup in _CGToShowAfterProgressBarArrived)
+            {
+
+                canvasGroup.alpha = tween.Value;
+            }
+        }) 
+        .OnEnd(tween =>
+        {
+            foreach (var canvasGroup in _CGToShowAfterProgressBarArrived)
+            {
+
+                canvasGroup.interactable = true;
+            }
+        })
         .Start();
     }
 
     private void ProgressBarArrived(bool progressBarReset = false)
     {
-        ShowNextLevelButton();
+        ShowButtons();
 
     }
 

@@ -12,6 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa747916aa66674d96ea40ca8a480b2, type: 3}
   m_Name: SettingsYG2
   m_EditorClassIdentifier: 
+  Authorization:
+    playerPhotoSize: 1
+    authorized: 1
+    playerName: Player current
+    uniqueID: 000
+    playerPhoto: demo image
+    payingStatus: 0
+  InterstitialAdv:
+    showFirstAdv: 1
+    interAdvInterval: 60
+    postponeCallByFail: 0
+    postponeCallTimer: 10
+    labelAdvSimLabel: 0
+  RewardedAdv:
+    rewardedAfterClosing: 1
+    skipInterAdvAfterReward: 0
+    labelAdvSimLabel: 0
   Basic:
     platform: {fileID: 11400000, guid: c2a303d33a9fd394bae4c4b88b9a1c44, type: 2}
     autoApplySettings: 0
@@ -19,16 +36,16 @@ MonoBehaviour:
     editEventSystem: 1
     autoGRA: 1
     logInEditor: 1
-    archivingBuild: 0
+    archivingBuild: 1
     syncInitSDK: 0
     loadSceneIfSDKLate: 0
     loadSceneIndex: 0
     simulationLoadScene: 0
   Simulation:
-    device: 0
+    device: 1
     language: ru
-    advIntervalSimulation: 60
-    durationAdv: 0.5
+    advIntervalSimulation: 5
+    durationAdv: 1
     loadAdv: 0
     testFailAds: 0
   Templates:
@@ -49,7 +66,10 @@ MonoBehaviour:
       color2: {r: 1, g: 0.831, b: 0.149, a: 0.7}
     fixedAspectRatio: 0
     aspectRatio: 16/9
+    disableForMobile: 1
     fillBackground: 0
+    imageBackground: 0
+    imageName: background.jpg
     gradientBackgroundByAspectRatio:
       radial: 0
       angleInclination: 140
@@ -61,6 +81,10 @@ MonoBehaviour:
   platformInfo:
     ownHost: 0
   platformToggles:
+    showFirstAdv: 0
+    interAdvInterval: 0
+    postponeCallByFail: 0
+    skipInterAdvAfterReward: 0
     selectWebGLTemplate: 1
     runInBackground: 1
     enableExceptions: 1

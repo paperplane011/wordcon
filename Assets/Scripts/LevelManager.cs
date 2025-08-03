@@ -11,7 +11,8 @@ public class LevelManager : MonoBehaviour
 {
     private static LevelManager _instance;
 
-    [SerializeField] [ReadOnly]
+    [SerializeField]
+    [ReadOnly]
     private List<LevelSO> _levelsList;
 
 
@@ -89,7 +90,27 @@ public class LevelManager : MonoBehaviour
                 Debug.Log("level added: " + levelSO.name);
             }
         }
+
+        _levelsList.Sort(CompareLevelsByLevelNum);
 #endif
+    }
+
+
+    private static int CompareLevelsByLevelNum(LevelSO x, LevelSO y)
+    {
+        if (x.LevelNum < y.LevelNum)
+        {
+            return -1;
+        }
+        else if (x.LevelNum > y.LevelNum)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+        
     }
     
 

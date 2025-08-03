@@ -7,7 +7,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField]
     private int _currentLevel; // last played level, needs to be saved in cloud
-    private int _hintAmount = 1;
+    private int _hintAmount = 2; // start hint amount
 
     public static Action OnFiveLevelsPassed;
 

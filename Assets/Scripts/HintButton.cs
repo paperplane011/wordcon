@@ -3,6 +3,7 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 using FronkonGames.TinyTween;
+using YG;
 
 [RequireComponent(typeof(Button), typeof(CanvasGroup))]
 public class HintButton : MonoBehaviour
@@ -24,15 +25,17 @@ public class HintButton : MonoBehaviour
     void OnEnable()
     {
         _button.onClick.AddListener(Clicked);
-        CanvasEventBus.OnGameLoaded += UpdateHintAmount;
+        if (!_isAdHintButton) CanvasEventBus.OnGameLoaded += UpdateHintAmount;
         if (!_isAdHintButton) ProgressBar.OnProgressBarReset += ShowAndIncrease;
+        if (_isAdHintButton) YG2.onCloseRewardedAdv += SquareManager.Instance.ShowRandomWord;
     }
 
     void OnDisable()
     {
         _button.onClick.RemoveAllListeners();
-        CanvasEventBus.OnGameLoaded -= UpdateHintAmount;
+        if (!_isAdHintButton) CanvasEventBus.OnGameLoaded -= UpdateHintAmount;
         if (!_isAdHintButton) ProgressBar.OnProgressBarReset -= ShowAndIncrease;
+        if (_isAdHintButton) YG2.onCloseRewardedAdv -= SquareManager.Instance.ShowRandomWord;
     }
 
 
@@ -53,6 +56,8 @@ public class HintButton : MonoBehaviour
 
     private void ClickedWithAds()
     {
+
+        YG2.RewardedAdvShow("0");
 
     }
 
