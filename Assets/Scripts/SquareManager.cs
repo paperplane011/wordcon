@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using FronkonGames.TinyTween;
 using UnityEngine;
@@ -30,13 +31,11 @@ public class SquareManager : MonoBehaviour
     }
 
     [SerializeField] private GameObject _squarePrefab;
-    [SerializeField] private float _pitchMultiplierStep = 0.05f;
-    private float _pitchMultiplier = 1f;
+    
     private LevelSO _levelSO;
     public Action OnLevelSOSetupped;
 
     private Dictionary<int, Square> _idToSquareDict;
-    private List<GameObject> _spawnedSquaresList = new();
     private int _numOfWords;
 
     private Dictionary<string, bool> _guessedWordsDictionary = new();
@@ -89,52 +88,59 @@ public class SquareManager : MonoBehaviour
         }
 
     }
+    void Start()
+    {
+        SpawnSquares();
+    }
+
+    private void SpawnSquares()
+    {
+        _idToSquareDict = new();
+
+        for (int i = 0; i <= 48; i++)
+        {
+            GameObject newSquareGO = Instantiate(_squarePrefab, transform);
+            Square newSquare = newSquareGO.GetComponent<Square>();
+
+            newSquare.SetID(i);
+            _idToSquareDict.Add(i, newSquare);
+            
+        }
+
+
+    }
 
     private void SetLayout(string layout)
     {
-        int id = 0;
-        _idToSquareDict = new();
-        _idToSquareDict.Clear();
+        ClearSquares();
 
-        DeleteExistingSquares();
-
+        int i = 0;
         foreach (var c in layout)
         {
-            GameObject newSquareGO = Instantiate(_squarePrefab, transform);
-            _spawnedSquaresList.Add(newSquareGO);
-
-            Square newSquare = newSquareGO.GetComponent<Square>();
-
-            newSquare.SetID(id);
-            _idToSquareDict.Add(id, newSquare);
-            id++;
-
-            if (c == ' ')
+            if (c != ' ')
             {
-                newSquare.SetEmpty(true);
+                _idToSquareDict[i].SetEmpty(false);
+                _idToSquareDict[i].SetLetter(c.ToString());
             }
-            else
-            {
-                newSquare.SetEmpty(false);
-                newSquare.SetLetter(c.ToString());
-            }
+
+            i++;
         }
     }
 
-    private void DeleteExistingSquares()
+    
+    private void ClearSquares()
     {
-        if (_spawnedSquaresList.Count == 0) return;
-        foreach (var square in _spawnedSquaresList)
+        foreach (var square in _idToSquareDict.Values)
         {
-            Destroy(square);
+            square.SetEmpty(true);
+            square.SetGuessed(false);
         }
-        _spawnedSquaresList.Clear();
     }
 
     public void SetupNewLevelSO(LevelSO levelSO)
     {
         _levelSO = levelSO;
-        _pitchMultiplier = 1f;
+        
 
         SetLayout(_levelSO.LayoutString.GetGridString());
         _guessedWordsDictionary.Clear();
@@ -165,24 +171,20 @@ public class SquareManager : MonoBehaviour
         }
 
         int[] ids;
-        if (_levelSO.WordsPositions.TryGetValue(word, out ids))
+        if (_levelSO.WordsPositions.TryGetValue(word, out ids)) // word guessed
         {
-            SetSquaresAsGuessed(ids);
+            StartCoroutine(SetSquaresAsGuessed(ids));
             _guessedWordsDictionary[word] = true;
-
 
             _numOfWords--;
 
-            if (_numOfWords == 0) _pitchMultiplier = 1f;
-            SoundManager.Instance.Play(SoundManager.SoundInfoName.wordGuessed, _pitchMultiplier);
-            _pitchMultiplier += _pitchMultiplierStep;
 
             if (_numOfWords == 0)
             {
                 TweenFloat.Create()
                 .Origin(0f)
                 .Destination(1f)
-                .Duration(1.5f)
+                .Duration(1.2f)
                 .Easing(Ease.Linear)
                 .OnEnd(tween =>
                 {
@@ -196,18 +198,30 @@ public class SquareManager : MonoBehaviour
         {
             Debug.Log("No such word: " + word);
             SoundManager.Instance.Play(SoundManager.SoundInfoName.wordNotGuessed);
-            _pitchMultiplier = 1f;
+            
         }
     }
 
 
-    private void SetSquaresAsGuessed(int[] ids)
+    IEnumerator SetSquaresAsGuessed(int[] ids)
     {
+       
         foreach (var id in ids)
         {
-            _idToSquareDict[id].SetGuessed(true);
+            yield return new WaitForSeconds(0.1f);
+            
+            if (!_idToSquareDict[id].GetIsGuessed())
+            {
+                _idToSquareDict[id].SetGuessed(true);
+
+                SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked);
+                
+            }
+            
         }
     }
+
+
 
 
     public string GetLettersForLetterCircle()

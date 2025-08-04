@@ -40,13 +40,13 @@ public class TweenSettings : MonoBehaviour
     }
 
 
-    public float LevelEndFadeTime = 1.5f;
+
     public float ProgressBarGoToNextPosTime = 1.5f;
     public float ProgressBarResetTime = 1f;
-    public float BackgroundFadeInTime = 1f;
     public float NextLevelButtonFadeInTime = 1f;
     public float DefaultCanvasFadeTime = 0.6f;
     public float ResultsCanvasFadeTime = 1.6f;
+    public float GuessedSquaresFadeInTime = 1f;
 
 
 }

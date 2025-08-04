@@ -31,6 +31,9 @@ public class BackgroundChanger : MonoBehaviour
 
     void Start()
     {
+        _currentBackgroundNum = PlayerManager.Instance.GetCurrentLevelNum()/5;
+        if (PlayerManager.Instance.GetCurrentLevelNum() % 5 == 0) _currentBackgroundNum -= 1;
+
         _mainImage.sprite = _backgroundsList[_currentBackgroundNum];
         _mainImageCanvasGroup.alpha = 1;
         
@@ -55,7 +58,7 @@ public class BackgroundChanger : MonoBehaviour
         _backImage.sprite = _backgroundsList[_currentBackgroundNum];
         
 
-        // Fade Out
+        
         TweenFloat.Create()
         .Origin(1f)
         .Destination(0f)

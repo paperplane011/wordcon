@@ -89,18 +89,33 @@ public class HintButton : MonoBehaviour
 
     private void ShowAndIncrease()
     {
-        _text.text += "+1";
+        
         _canvasGroup.alpha = 0;
         _canvasGroup.interactable = false;
         _canvasGroup.ignoreParentGroups = true;
+        bool flag = false;
+        
 
         TweenFloat.Create()
         .Origin(0f)
         .Destination(1f)
-        .Easing(Ease.Quint)
+        .Easing(Ease.Circ)
         .Duration(TweenSettings.Instance.ProgressBarResetTime)
-        .OnUpdate(tween => _canvasGroup.alpha = tween.Value)
-        .OnEnd(tween => _text.text = PlayerManager.Instance.GetHintAmount().ToString())
+        .OnUpdate(tween =>
+        {
+            _canvasGroup.alpha = tween.Value;
+            if (!flag && tween.Value >= 0.5f)
+            {
+                _text.text += "+2";
+                SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked, 1.3f);
+                flag = true;
+            }
+        })
+        .OnEnd(tween =>
+        {
+            _text.text = PlayerManager.Instance.GetHintAmount().ToString();
+            SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked);
+        })
         .Start();
         
     }

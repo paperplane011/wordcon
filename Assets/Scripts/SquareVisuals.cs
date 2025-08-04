@@ -20,22 +20,22 @@ public class SquareVisuals : MonoBehaviour
     {
         if (isEmpty)
         {
-            _image.color = _emptySquareColor;
+            _image.color = new Color(0f, 0f, 0f, 0f);
+            _text.text = "";
             return;
         }
-
-
 
         if (isLetterGuessed)
         {
             _text.text = letter;
+            
 
             TweenColor.Create()
             .Origin(_image.color)
             .Destination(_letterSquareGuessedColor)
             .Easing(Ease.Quad)
             .Owner(this)
-            .Duration(0.9f)
+            .Duration(TweenSettings.Instance.GuessedSquaresFadeInTime)
             .OnUpdate(tween => _image.color = tween.Value)
             .Start();
         }

@@ -87,11 +87,16 @@ public class LevelManager : MonoBehaviour
             if (levelSO != null)
             {
                 _levelsList.Add(levelSO);
+                if (!levelSO.IsLevelCorrect())
+                {
+                    Debug.LogError($"Level {levelSO.LevelNum} incorrect: " + levelSO.name);
+                }
                 Debug.Log("level added: " + levelSO.name);
             }
         }
 
         _levelsList.Sort(CompareLevelsByLevelNum);
+        
 #endif
     }
 

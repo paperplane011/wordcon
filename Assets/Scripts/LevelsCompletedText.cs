@@ -21,6 +21,7 @@ public class LevelsCompletedText : MonoBehaviour
 
     void Start()
     {
+        _levelsCompleted = PlayerManager.Instance.GetCurrentLevelNum();
         _text.text = _levelsCompleted.ToString() + _postfix;
     }
 
@@ -32,7 +33,18 @@ public class LevelsCompletedText : MonoBehaviour
         .Destination(1f)
         .Duration(0.8f)
         .Easing(Ease.Linear)
-        .OnEnd(tween => { _text.text = (++_levelsCompleted).ToString() + _postfix; SoundManager.Instance.Play(SoundManager.SoundInfoName.progressBarStep); })
+        .OnEnd(tween =>
+        {
+            _text.text = (++_levelsCompleted).ToString() + _postfix;
+            if ((_levelsCompleted - 1) % 5 == 0)
+            {
+                SoundManager.Instance.Play(SoundManager.SoundInfoName.progressBarEnd);
+            }
+            else
+            {
+                SoundManager.Instance.Play(SoundManager.SoundInfoName.progressBarStep);
+            }
+        })
         .Start();
 
 

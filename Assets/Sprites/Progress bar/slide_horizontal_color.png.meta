@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
@@ -144,7 +144,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 192
+        width: 31
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -156,6 +156,50 @@ TextureImporter:
       bones: []
       spriteID: 54c29cb95bd32f180800000000000000
       internalID: -9083129648240841659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_horizontal_color_1
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 0
+        width: 130
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc756a45c23334f4897864f91980bfa9
+      internalID: 1041634050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_horizontal_color_2
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 0
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2244afee7a494774d85437075f24cb1c
+      internalID: -886714863
       vertices: []
       indices: 
       edges: []
@@ -175,6 +219,8 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       slide_horizontal_color_0: -9083129648240841659
+      slide_horizontal_color_1: 1041634050
+      slide_horizontal_color_2: -886714863
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

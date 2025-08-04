@@ -8,13 +8,12 @@ public class SoundManager : MonoBehaviour
 
     public enum SoundInfoName
     {
-        wordGuessed,
         wordNotGuessed,
         levelBegin,
         levelEnd,
         letterButtonClicked,
         progressBarEnd,
-        progressBarStep
+        progressBarStep,
     }
 
     [System.Serializable]

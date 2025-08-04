@@ -1,15 +1,23 @@
 using System;
 using UnityEngine;
+using YG;
+
+
+namespace YG
+{
+    public partial class SavesYG
+    {
+        public int currentLevel;
+        public int hintAmount;
+    }
+}
 
 
 public class PlayerManager : MonoBehaviour
 {
 
     [SerializeField]
-    private int _currentLevel; // last played level, needs to be saved in cloud
-    private int _hintAmount = 2; // start hint amount
 
-    public static Action OnFiveLevelsPassed;
 
     private static PlayerManager _instance;
 
@@ -44,8 +52,6 @@ public class PlayerManager : MonoBehaviour
         {
             _instance = this;
         }
-
-        _currentLevel = 1;
     }
 
 
@@ -53,35 +59,51 @@ public class PlayerManager : MonoBehaviour
     void OnEnable()
     {
         CanvasEventBus.OnGameEnd += GameEndBehaviour;
-        HintButton.OnHintWithoutAdsUsed += () => _hintAmount--;
+        HintButton.OnHintWithoutAdsUsed += OnHintUsed;
+        YG2.onDefaultSaves += EmptySavesBehaviour;
     }
 
     void OnDisable()
     {
         CanvasEventBus.OnGameEnd -= GameEndBehaviour;
-        HintButton.OnHintWithoutAdsUsed -= () => _hintAmount--;
+        HintButton.OnHintWithoutAdsUsed -= OnHintUsed;
+        YG2.onDefaultSaves -= EmptySavesBehaviour;
+    }
+
+    private void OnHintUsed()
+    {
+        YG2.saves.hintAmount--;
     }
 
 
     public int GetCurrentLevelNum()
     {
-        return _currentLevel;
+        return YG2.saves.currentLevel;
     }
 
     private void GameEndBehaviour()
     {
-        _currentLevel++;
+        YG2.saves.currentLevel++;
 
-        if ((_currentLevel - 1) % 5 == 0)
+        if ((YG2.saves.currentLevel - 1) % 5 == 0)
         {
-            _hintAmount++;
+            YG2.saves.hintAmount+=2;
         }
+
+        YG2.SaveProgress();
+    }
+
+    private void EmptySavesBehaviour()
+    {
+        YG2.saves.currentLevel = 1;
+        YG2.saves.hintAmount = 2;
+        Debug.Log("first game session!");
     }
 
 
     public int GetHintAmount()
     {
-        return _hintAmount;
+        return YG2.saves.hintAmount;
     }
 
 

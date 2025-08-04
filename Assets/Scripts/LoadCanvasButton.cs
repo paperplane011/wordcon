@@ -19,7 +19,7 @@ public class LoadCanvasButton : MonoBehaviour
 
     void OnEnable()
     {
-        _button.onClick.AddListener(LoadCanvasOrShowAd);
+        _button.onClick.AddListener(LoadCanvasTryToShowAd);
         if (_showAd) YG2.onCloseInterAdv += LoadCanvas;
     }
 
@@ -29,7 +29,7 @@ public class LoadCanvasButton : MonoBehaviour
         if (_showAd) YG2.onCloseInterAdv -= LoadCanvas;
     }
 
-    private void LoadCanvasOrShowAd()
+    private void LoadCanvasTryToShowAd()
     {
         if (!_showAd)
         {
@@ -37,7 +37,14 @@ public class LoadCanvasButton : MonoBehaviour
         }
         else
         {
-            YG2.InterstitialAdvShow();
+            if (YG2.isTimerAdvCompleted)
+            {
+                YG2.InterstitialAdvShow();
+            }
+            else
+            {
+                LoadCanvas();
+            }
         }
     }
 
