@@ -38,15 +38,19 @@ public class LevelsCompletedText : MonoBehaviour
             _text.text = (++_levelsCompleted).ToString() + _postfix;
             if ((_levelsCompleted - 1) % 5 == 0)
             {
-                SoundManager.Instance.Play(SoundManager.SoundInfoName.progressBarEnd);
+                SoundManager.Instance.Play(SoundManager.SoundInfoName.progressBarStep, 1.2f);
             }
             else
             {
                 SoundManager.Instance.Play(SoundManager.SoundInfoName.progressBarStep);
             }
+            
         })
         .Start();
 
 
     }
+
+
+    
 }

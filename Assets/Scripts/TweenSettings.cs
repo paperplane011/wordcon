@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 
 public class TweenSettings : MonoBehaviour
@@ -47,6 +48,8 @@ public class TweenSettings : MonoBehaviour
     public float DefaultCanvasFadeTime = 0.6f;
     public float ResultsCanvasFadeTime = 1.6f;
     public float GuessedSquaresFadeInTime = 1f;
+    public float SquareFloatSpeed = 3f;
+    public float SquareFloatPosDelta = 0.4f;
 
 
 }

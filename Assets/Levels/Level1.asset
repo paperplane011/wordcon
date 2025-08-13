@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836232dedd0f7564697930e6d43a9c56, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  LevelNum: 3
-  LevelLetters: "\u0421\u041F\u041E\u0420\u0422"
+  LevelNum: 1
+  LevelLetters: "\u0420\u041F\u041E\u0421\u0422"
   LayoutString:
     _gridData: "  \u0422\u041E\u0420\u0421   \u0420  \u041E   \u041E  \u0420  \u0421\u041F\u041E\u0420\u0422 
       \u041F \u041F   \u041F\u041E\u0420\u0422    \u0420     "

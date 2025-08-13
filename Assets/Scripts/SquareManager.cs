@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FronkonGames.TinyTween;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Windows;
 
 
@@ -31,7 +33,9 @@ public class SquareManager : MonoBehaviour
     }
 
     [SerializeField] private GameObject _squarePrefab;
-    
+    [SerializeField] private GridLayoutGroup _gridLayoutGroup;
+    private RectTransform _gridLayoutGroupRectTransform;
+
     private LevelSO _levelSO;
     public Action OnLevelSOSetupped;
 
@@ -51,6 +55,8 @@ public class SquareManager : MonoBehaviour
         {
             _instance = this;
         }
+
+        _gridLayoutGroupRectTransform = _gridLayoutGroup.GetComponent<RectTransform>();
     }
 
     void Update()
@@ -101,11 +107,19 @@ public class SquareManager : MonoBehaviour
         {
             GameObject newSquareGO = Instantiate(_squarePrefab, transform);
             Square newSquare = newSquareGO.GetComponent<Square>();
-
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_gridLayoutGroupRectTransform);
             newSquare.SetID(i);
             _idToSquareDict.Add(i, newSquare);
-            
+
         }
+
+        _gridLayoutGroup.enabled = false;
+
+        foreach (Square square in _idToSquareDict.Values)
+        {
+            square.AddTween();
+        }
+
 
 
     }
@@ -127,7 +141,7 @@ public class SquareManager : MonoBehaviour
         }
     }
 
-    
+
     private void ClearSquares()
     {
         foreach (var square in _idToSquareDict.Values)
@@ -140,13 +154,13 @@ public class SquareManager : MonoBehaviour
     public void SetupNewLevelSO(LevelSO levelSO)
     {
         _levelSO = levelSO;
-        
+
 
         SetLayout(_levelSO.LayoutString.GetGridString());
         _guessedWordsDictionary.Clear();
         _numOfWords = _levelSO.GetNumOfWords();
 
-        foreach(string word in _levelSO.WordsPositions.Keys)
+        foreach (string word in _levelSO.WordsPositions.Keys)
         {
             _guessedWordsDictionary.Add(word, false);
         }
@@ -198,26 +212,26 @@ public class SquareManager : MonoBehaviour
         {
             Debug.Log("No such word: " + word);
             SoundManager.Instance.Play(SoundManager.SoundInfoName.wordNotGuessed);
-            
+
         }
     }
 
 
     IEnumerator SetSquaresAsGuessed(int[] ids)
     {
-       
+
         foreach (var id in ids)
         {
             yield return new WaitForSeconds(0.1f);
-            
+
             if (!_idToSquareDict[id].GetIsGuessed())
             {
                 _idToSquareDict[id].SetGuessed(true);
 
                 SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked);
-                
+
             }
-            
+
         }
     }
 
@@ -251,6 +265,13 @@ public class SquareManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+
+    public bool CanShowRandomWord()
+    {
+        if (_numOfWords == 0) return false;
+        else return true;
     }
 
 

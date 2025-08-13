@@ -1,3 +1,4 @@
+using FronkonGames.TinyTween;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Square : MonoBehaviour
 {
+    [SerializeField] RectTransform _rectTransform;
 
     [OnValueChanged("OnEmptyChanged")]
     [SerializeField] public bool _isEmpty = false;
@@ -20,6 +22,11 @@ public class Square : MonoBehaviour
     private SquareVisuals _squareVisuals;
     public int ID { get; private set; }
 
+    Vector3 _pos = new Vector3();
+
+    
+
+
 
     private void Awake()
     {
@@ -28,13 +35,25 @@ public class Square : MonoBehaviour
 
     private void Start()
     {
+        
         UpdateVisuals();
     }
 
+    public void AddTween()
+    {
+        _rectTransform.position = _pos;
+
+        Vector3 originPos = new Vector3(_rectTransform.position.x, _rectTransform.position.y + TweenSettings.Instance.SquareFloatPosDelta, 0);
+        Vector3 destPos = new Vector3(_rectTransform.position.x, _rectTransform.position.y - TweenSettings.Instance.SquareFloatPosDelta, 0);
+
+        _rectTransform.TweenMove(originPos, destPos, TweenSettings.Instance.SquareFloatSpeed, Ease.Sine).Loop(TweenLoop.YoYo);
+        
+    }
 
     public void SetID(int newID)
     {
         ID = newID;
+        _pos = _rectTransform.position;
     }
 
     public void SetEmpty(bool isEmpty)

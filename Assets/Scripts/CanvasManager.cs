@@ -195,12 +195,13 @@ public class CanvasManager : MonoBehaviour
 
         if (canvasType == CanvasType.Results)
         {
+
             TweenFloat.Create()
-            .Origin(0f)
-            .Destination(-1000f)
-            .Easing(Ease.Circ)
-            .Duration(TweenSettings.Instance.ResultsCanvasFadeTime*1.5f)
-            .OnUpdate(tween => _resultsPanelRectTransform.sizeDelta = new Vector2(_resultsPanelRectTransform.sizeDelta.x, -tween.Value*2))
+            .Origin(2000f) 
+            .Destination(0f)
+            .Easing(Ease.Sine)
+            .Duration(TweenSettings.Instance.ResultsCanvasFadeTime*1.7f)
+            .OnUpdate(tween => _resultsPanelRectTransform.sizeDelta = new Vector2(_resultsPanelRectTransform.sizeDelta.x, -tween.Value))
             .Start();
         }
 

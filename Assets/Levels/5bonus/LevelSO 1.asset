@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 836232dedd0f7564697930e6d43a9c56, type: 3}
-  m_Name: Level4 3
+  m_Name: LevelSO 1
   m_EditorClassIdentifier: 
-  LevelNum: 6
-  LevelLetters: "\u0410\u0414\u041C\u0418\u0420\u0410\u041B"
+  LevelNum: 65
+  LevelLetters: "\u041F\u0415\u0422\u0410\u0420\u0414\u0410"
   LayoutString:
-    _gridData: " \u0410      \u0414      \u041C      \u0418      \u0420      \u0410     
-      \u041B     "
+    _gridData: " \u0410      \u0414      \u0410      \u041F      \u0422     \u041F\u0415\u0422\u0410\u0420\u0414\u0410
+      \u0420     "
   WordsPositions:
     _serializedList:
-    - Key: "\u0410\u0414\u041C\u0418\u0420\u0410\u041B"
+    - Key: "\u041F\u0415\u0422\u0410\u0420\u0414\u0410"
+      Value: 23000000240000002500000026000000270000002800000029000000
+    - Key: "\u0410\u0414\u0410\u041F\u0422\u0415\u0420"
       Value: 01000000080000000f000000160000001d000000240000002b000000

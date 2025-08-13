@@ -81,6 +81,7 @@ public class HintButton : MonoBehaviour
             return;
         }
 
+        if (!SquareManager.Instance.CanShowRandomWord()) return;
         SquareManager.Instance.ShowRandomWord();
         OnHintWithoutAdsUsed?.Invoke();
         UpdateHintAmount();
@@ -106,7 +107,7 @@ public class HintButton : MonoBehaviour
             _canvasGroup.alpha = tween.Value;
             if (!flag && tween.Value >= 0.5f)
             {
-                _text.text += "+2";
+                _text.text += "+3";
                 SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked, 1.3f);
                 flag = true;
             }

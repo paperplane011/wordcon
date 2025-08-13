@@ -41,6 +41,7 @@ public class LetterButtonsLineConnectorHandler : MonoBehaviour
 
     [SerializeField] LetterButtonsLineConnector5 _letterButtonLineConnector5;
     [SerializeField] LetterButtonsLineConnector6 _letterButtonLineConnector6;
+    [SerializeField] LetterButtonsLineConnector7 _letterButtonLineConnector7;
 
     private int _numOfLetters;
 
@@ -65,6 +66,10 @@ public class LetterButtonsLineConnectorHandler : MonoBehaviour
         {
             _letterButtonLineConnector6.EnableLineToButton(id);
         }
+        else if (_numOfLetters == 7)
+        {
+            _letterButtonLineConnector7.EnableLineToButton(id);
+        }
 
     }
 
@@ -73,6 +78,7 @@ public class LetterButtonsLineConnectorHandler : MonoBehaviour
         _numOfLetters = SquareManager.Instance.GetLettersForLetterCircle().Length;
         _letterButtonLineConnector5.ResetLines();
         _letterButtonLineConnector6.ResetLines();
+        _letterButtonLineConnector7.ResetLines();
         
     }
 

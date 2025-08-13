@@ -12,8 +12,7 @@ public class SoundManager : MonoBehaviour
         levelBegin,
         levelEnd,
         letterButtonClicked,
-        progressBarEnd,
-        progressBarStep,
+        progressBarStep
     }
 
     [System.Serializable]
