@@ -44,6 +44,8 @@ public class SquareManager : MonoBehaviour
 
     private Dictionary<string, bool> _guessedWordsDictionary = new();
 
+    public float SquareTweenDelta = 0f;
+
     private void Awake()
     {
         // Ensure only one instance exists
@@ -115,9 +117,18 @@ public class SquareManager : MonoBehaviour
 
         _gridLayoutGroup.enabled = false;
 
+        TweenFloat.Create()
+        .Origin(-TweenSettings.Instance.SquareFloatPosDelta)
+        .Destination(TweenSettings.Instance.SquareFloatPosDelta)
+        .Duration(TweenSettings.Instance.SquareFloatSpeed)
+        .Easing(Ease.Sine)
+        .OnUpdate(tween => SquareTweenDelta = tween.Value)
+        .Loop(TweenLoop.YoYo)
+        .Start();
+
         foreach (Square square in _idToSquareDict.Values)
         {
-            square.AddTween();
+            square.CanBeTweened = true;
         }
 
 
@@ -195,17 +206,7 @@ public class SquareManager : MonoBehaviour
 
             if (_numOfWords == 0)
             {
-                TweenFloat.Create()
-                .Origin(0f)
-                .Destination(1f)
-                .Duration(1.2f)
-                .Easing(Ease.Linear)
-                .OnEnd(tween =>
-                {
-                    CanvasManager.Instance.GameEndBehaviour();
-                    SoundManager.Instance.Play(SoundManager.SoundInfoName.levelEnd);
-                })
-                .Start();
+                StartCoroutine(InitializeGameEndBehaviourWithDelay());
             }
         }
         else
@@ -216,6 +217,12 @@ public class SquareManager : MonoBehaviour
         }
     }
 
+    IEnumerator InitializeGameEndBehaviourWithDelay()
+    {
+        yield return new WaitForSeconds(TweenSettings.Instance.GameEndDelay);
+        CanvasManager.Instance.GameEndBehaviour();
+        SoundManager.Instance.Play(SoundManager.SoundInfoName.levelEnd);
+    }
 
     IEnumerator SetSquaresAsGuessed(int[] ids)
     {

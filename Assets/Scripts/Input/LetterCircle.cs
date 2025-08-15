@@ -44,6 +44,24 @@ public class LetterCircle : MonoBehaviour
     }
 
 
+    private string Shuffle(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+            return input;
+
+        char[] chars = input.ToCharArray();
+        int n = chars.Length;
+
+        while (n > 1)
+        {
+            n--;
+            int k = UnityEngine.Random.Range(0, n + 1);
+            (chars[k], chars[n]) = (chars[n], chars[k]); // Обмен значениями
+        }
+
+        return new string(chars);
+    }
+
 
 
     private void SpawnLetterButtons()
@@ -51,6 +69,7 @@ public class LetterCircle : MonoBehaviour
         DeleteExistingButtons();
 
         string letterButtonsToSpawn = SquareManager.Instance.GetLettersForLetterCircle();
+        letterButtonsToSpawn = Shuffle(letterButtonsToSpawn);
         int numOfLettersToSpawn = letterButtonsToSpawn.Length;
         SetupCircularLayout(numOfLettersToSpawn);
 

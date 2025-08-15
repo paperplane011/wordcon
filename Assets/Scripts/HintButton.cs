@@ -107,7 +107,7 @@ public class HintButton : MonoBehaviour
             _canvasGroup.alpha = tween.Value;
             if (!flag && tween.Value >= 0.5f)
             {
-                _text.text += "+3";
+                _text.text += "+2";
                 SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked, 1.3f);
                 flag = true;
             }

@@ -3613,11 +3613,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d5eabda54ffb7a459e59ec9b9238e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProgressBarGoToNextPosTime: 1
+  ProgressBarGoToNextPosTime: 1.5
   ProgressBarResetTime: 3
-  NextLevelButtonFadeInTime: 0.3
+  NextLevelButtonFadeInTime: 0.6
   DefaultCanvasFadeTime: 0.6
-  ResultsCanvasFadeTime: 0.5
+  ResultsCanvasFadeTime: 1
   GuessedSquaresFadeInTime: 1
   SquareFloatSpeed: 5
   SquareFloatPosDelta: 20

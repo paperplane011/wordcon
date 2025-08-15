@@ -50,6 +50,7 @@ public class TweenSettings : MonoBehaviour
     public float GuessedSquaresFadeInTime = 1f;
     public float SquareFloatSpeed = 3f;
     public float SquareFloatPosDelta = 0.4f;
+    public float GameEndDelay = 1.2f;
 
 
 }

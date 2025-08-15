@@ -22,7 +22,8 @@ public class Square : MonoBehaviour
     private SquareVisuals _squareVisuals;
     public int ID { get; private set; }
 
-    Vector3 _pos = new Vector3();
+    private Vector3 _pos = new Vector3();
+    public bool CanBeTweened = false;
 
     
 
@@ -39,16 +40,17 @@ public class Square : MonoBehaviour
         UpdateVisuals();
     }
 
-    public void AddTween()
+   
+
+    void Update()
     {
-        _rectTransform.position = _pos;
-
-        Vector3 originPos = new Vector3(_rectTransform.position.x, _rectTransform.position.y + TweenSettings.Instance.SquareFloatPosDelta, 0);
-        Vector3 destPos = new Vector3(_rectTransform.position.x, _rectTransform.position.y - TweenSettings.Instance.SquareFloatPosDelta, 0);
-
-        _rectTransform.TweenMove(originPos, destPos, TweenSettings.Instance.SquareFloatSpeed, Ease.Sine).Loop(TweenLoop.YoYo);
+        if (CanBeTweened) {
+            _rectTransform.position = new Vector3(_pos.x, _pos.y + SquareManager.Instance.SquareTweenDelta);
+        }
         
     }
+
+
 
     public void SetID(int newID)
     {
@@ -71,6 +73,17 @@ public class Square : MonoBehaviour
     public void SetGuessed(bool isGuessed)
     {
         _isLetterGuessed = isGuessed;
+
+        TweenFloat.Create()
+        .Origin(0)
+        .Destination(10f)
+        .Duration(0.2f)
+        .Easing(Ease.Linear)
+        .Loop(TweenLoop.YoYo)
+        .Condition(tween => tween.ExecutionCount<2)
+        .OnUpdate(tween => _rectTransform.position = new Vector3(_rectTransform.position.x, _rectTransform.position.y - tween.Value))
+        .Start();
+
         UpdateVisuals();
     }
 

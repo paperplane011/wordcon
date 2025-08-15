@@ -87,7 +87,7 @@ public class PlayerManager : MonoBehaviour
 
         if ((YG2.saves.currentLevel - 1) % 5 == 0)
         {
-            YG2.saves.hintAmount+=3;
+            YG2.saves.hintAmount+=2;
         }
 
         YG2.SaveProgress();

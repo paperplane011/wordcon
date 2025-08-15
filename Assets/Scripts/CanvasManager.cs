@@ -199,7 +199,7 @@ public class CanvasManager : MonoBehaviour
             TweenFloat.Create()
             .Origin(2000f) 
             .Destination(0f)
-            .Easing(Ease.Sine)
+            .Easing(Ease.Quart)
             .Duration(TweenSettings.Instance.ResultsCanvasFadeTime*1.7f)
             .OnUpdate(tween => _resultsPanelRectTransform.sizeDelta = new Vector2(_resultsPanelRectTransform.sizeDelta.x, -tween.Value))
             .Start();
