@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using FronkonGames.TinyTween;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Windows;
 
 
 
@@ -34,6 +32,7 @@ public class SquareManager : MonoBehaviour
 
     [SerializeField] private GameObject _squarePrefab;
     [SerializeField] private GridLayoutGroup _gridLayoutGroup;
+    [SerializeField] private Image _levelEndBlinkImage;
     private RectTransform _gridLayoutGroupRectTransform;
 
     private LevelSO _levelSO;
@@ -44,6 +43,7 @@ public class SquareManager : MonoBehaviour
 
     private Dictionary<string, bool> _guessedWordsDictionary = new();
 
+    [HideInInspector]
     public float SquareTweenDelta = 0f;
 
     private void Awake()
@@ -206,6 +206,7 @@ public class SquareManager : MonoBehaviour
 
             if (_numOfWords == 0)
             {
+                LevelCompleteBlink();
                 StartCoroutine(InitializeGameEndBehaviourWithDelay());
             }
         }
@@ -217,11 +218,25 @@ public class SquareManager : MonoBehaviour
         }
     }
 
+    private void LevelCompleteBlink()
+    {
+        TweenFloat.Create()
+        .Origin(0f)
+        .Destination(0.06f)
+        .Duration(0.33f)
+        .Easing(Ease.Linear)
+        .Condition(tween => tween.ExecutionCount < 2)
+        .Loop(TweenLoop.YoYo)
+        .OnUpdate(tween => _levelEndBlinkImage.color = new Color(_levelEndBlinkImage.color.r, _levelEndBlinkImage.color.g, _levelEndBlinkImage.color.b, tween.Value))
+        .Start();
+        SoundManager.Instance.Play(SoundManager.SoundInfoName.levelEnd);
+    }
+
     IEnumerator InitializeGameEndBehaviourWithDelay()
     {
         yield return new WaitForSeconds(TweenSettings.Instance.GameEndDelay);
         CanvasManager.Instance.GameEndBehaviour();
-        SoundManager.Instance.Play(SoundManager.SoundInfoName.levelEnd);
+        
     }
 
     IEnumerator SetSquaresAsGuessed(int[] ids)

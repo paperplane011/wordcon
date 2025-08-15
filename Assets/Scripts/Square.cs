@@ -23,6 +23,8 @@ public class Square : MonoBehaviour
     public int ID { get; private set; }
 
     private Vector3 _pos = new Vector3();
+
+    [HideInInspector]
     public bool CanBeTweened = false;
 
     

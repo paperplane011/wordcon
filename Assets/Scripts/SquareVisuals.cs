@@ -48,7 +48,7 @@ public class SquareVisuals : MonoBehaviour
             .Destination(_letterSquareNotGuessedColor)
             .Easing(Ease.Sine)
             .Owner(this)
-            .Duration(1f)
+            .Duration(0.5f)
             .OnUpdate(tween => _image.color = tween.Value)
             .Start();
         }
