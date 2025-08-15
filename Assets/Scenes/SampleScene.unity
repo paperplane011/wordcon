@@ -1388,7 +1388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 365.28}
+  m_AnchoredPosition: {x: 0, y: 328.29}
   m_SizeDelta: {x: 805, y: 805}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &190990297
@@ -3513,11 +3513,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelsList:
-  - {fileID: 11400000, guid: ecd7d9c669bb817439a4cb26251a0aac, type: 2}
-  - {fileID: 11400000, guid: 48fa4fa961856a6429940eee2d8af206, type: 2}
+  - {fileID: 11400000, guid: d6ca556144277d242bdd95678e9abf96, type: 2}
+  - {fileID: 11400000, guid: 8ec429b193da9904ea4fc9b24ef01451, type: 2}
+  - {fileID: 11400000, guid: 1edb50dbb8b7be945bbb76b491226109, type: 2}
+  - {fileID: 11400000, guid: 763c7c95381d70042b6584edaff2e44c, type: 2}
   - {fileID: 11400000, guid: bc45675cfb7e3ab4b9b4a13613b6f4db, type: 2}
+  - {fileID: 11400000, guid: 5fe706701b68d204dac575725ac04262, type: 2}
+  - {fileID: 11400000, guid: 4a71d930660b4d9448a3e1578f8f835a, type: 2}
+  - {fileID: 11400000, guid: 115470d4cd6b5374bb11fdcc6aa0b3cf, type: 2}
+  - {fileID: 11400000, guid: 4a36f9bd53e59594aba2eeae836b2552, type: 2}
   - {fileID: 11400000, guid: 1f8316e87229f884b9322a375dac2304, type: 2}
+  - {fileID: 11400000, guid: e30fbf74ab31cd9478cf06f2476f95cf, type: 2}
+  - {fileID: 11400000, guid: ce1984fa62b62b6449b291619d7b5ef3, type: 2}
+  - {fileID: 11400000, guid: d2998477506a06446b07ace599927f7d, type: 2}
+  - {fileID: 11400000, guid: 31f084309d99a8b49b8e9d5eb96b860c, type: 2}
   - {fileID: 11400000, guid: 68caa0f61f2a3bd4da0b01c528d21a8a, type: 2}
+  - {fileID: 11400000, guid: e624533150bc4cd4fa85f992bc592c58, type: 2}
   - {fileID: 11400000, guid: adf01bfdd7186404896bff0a5fd87c90, type: 2}
   - {fileID: 11400000, guid: f77bf20f59b470446b93a54a71b42f06, type: 2}
   - {fileID: 11400000, guid: 25358c9bb804e6e4084ce3eb0d1cdd3d, type: 2}
@@ -3602,11 +3613,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d5eabda54ffb7a459e59ec9b9238e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProgressBarGoToNextPosTime: 1.5
+  ProgressBarGoToNextPosTime: 1
   ProgressBarResetTime: 3
-  NextLevelButtonFadeInTime: 0.6
+  NextLevelButtonFadeInTime: 0.3
   DefaultCanvasFadeTime: 0.6
-  ResultsCanvasFadeTime: 1.2
+  ResultsCanvasFadeTime: 0.5
   GuessedSquaresFadeInTime: 1
   SquareFloatSpeed: 5
   SquareFloatPosDelta: 20
@@ -4643,7 +4654,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 821737368}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -8607,7 +8618,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594429829}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

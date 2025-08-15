@@ -89,9 +89,9 @@ public class LevelManager : MonoBehaviour
                 _levelsList.Add(levelSO);
                 if (!levelSO.IsLevelCorrect())
                 {
-                    Debug.LogError($"Level {levelSO.LevelNum} incorrect: " + levelSO.name);
+                    Debug.LogError($"Level {levelSO.LevelNum} incorrect: ");
                 }
-                Debug.Log("level added: " + levelSO.name);
+                Debug.Log("Level added: " + levelSO.LevelNum);
             }
         }
 

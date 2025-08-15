@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 836232dedd0f7564697930e6d43a9c56, type: 3}
-  m_Name: Level2
+  m_Name: LevelSO 3
   m_EditorClassIdentifier: 
-  LevelNum: 2
+  LevelNum: 4
   LevelLetters: "\u0421\u041B\u041E\u041D\u0410"
   LayoutString:
-    _gridData: "         \u0421\u0410\u041B\u041E   \u0410      \u041D\u041E\u0421     
-      \u041B      \u041E\u0421\u0410  \u0421\u041E\u041D  "
+    _gridData: " \u0421\u0410\u041B\u041E   \u0410      \u041D\u041E\u0421      \u041B     
+      \u041E\u0421\u0410  \u0421\u041E\u041D          "
   WordsPositions:
     _serializedList:
-    - Key: "\u0421\u0410\u041D"
-      Value: 090000001000000017000000
     - Key: "\u0421\u0410\u041B\u041E"
-      Value: 090000000a0000000b0000000c000000
-    - Key: "\u041D\u041E\u0421"
-      Value: 170000001800000019000000
+      Value: 01000000020000000300000004000000
+    - Key: "\u0421\u0410\u041D"
+      Value: 01000000080000000f000000
     - Key: "\u0421\u041B\u041E\u041D"
-      Value: 1900000020000000270000002e000000
-    - Key: "\u041E\u0421\u0410"
-      Value: 270000002800000029000000
+      Value: 11000000180000001f00000026000000
     - Key: "\u0421\u041E\u041D"
-      Value: 2c0000002d0000002e000000
+      Value: 240000002500000026000000
+    - Key: "\u041E\u0421\u0410"
+      Value: 1f0000002000000021000000
+    - Key: "\u041D\u041E\u0421"
+      Value: 0f0000001000000011000000

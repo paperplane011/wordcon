@@ -27,6 +27,7 @@ public class LevelSO : ScriptableObject
         {
             if (word.Length != WordsPositions[word].Count())
             {
+                Debug.LogError($"Level {LevelNum}: Word \"{word}\" has too much id's for letters");
                 return false;
             }
 
@@ -39,10 +40,13 @@ public class LevelSO : ScriptableObject
                 }
             }
 
-            if (lettersPresent != word.Length)
+            if (lettersPresent < word.Length)
             {
+                Debug.LogError($"Level {LevelNum}: Word \"{word}\" have false letters");
                 return false;
             }
+
+            
         }
 
         return true;
