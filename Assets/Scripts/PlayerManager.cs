@@ -59,15 +59,17 @@ public class PlayerManager : MonoBehaviour
     void OnEnable()
     {
         CanvasEventBus.OnGameEnd += GameEndBehaviour;
-        HintButton.OnHintWithoutAdsUsed += OnHintUsed;
+        HintButton.OnHintUsed += OnHintUsed;
         YG2.onDefaultSaves += EmptySavesBehaviour;
+        
     }
 
     void OnDisable()
     {
         CanvasEventBus.OnGameEnd -= GameEndBehaviour;
-        HintButton.OnHintWithoutAdsUsed -= OnHintUsed;
+        HintButton.OnHintUsed -= OnHintUsed;
         YG2.onDefaultSaves -= EmptySavesBehaviour;
+        
     }
 
     private void OnHintUsed()
@@ -87,7 +89,7 @@ public class PlayerManager : MonoBehaviour
 
         if ((YG2.saves.currentLevel - 1) % 5 == 0)
         {
-            YG2.saves.hintAmount+=2;
+            YG2.saves.hintAmount += 2;
         }
 
         YG2.SaveProgress();
@@ -105,6 +107,8 @@ public class PlayerManager : MonoBehaviour
     {
         return YG2.saves.hintAmount;
     }
+
+   
 
 
 

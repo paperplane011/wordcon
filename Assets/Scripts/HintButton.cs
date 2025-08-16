@@ -8,82 +8,98 @@ using YG;
 [RequireComponent(typeof(Button), typeof(CanvasGroup))]
 public class HintButton : MonoBehaviour
 {
-    [SerializeField] private bool _isAdHintButton;
+    //[SerializeField] private bool _isAdHintButton;
 
     [SerializeField] private TextMeshProUGUI _text;
-    private Button _button;
-    private CanvasGroup _canvasGroup;
+    [SerializeField] private CanvasGroup _adIconCanvasGroup; // show ad icon when there is no hints
 
-    public static Action OnHintWithoutAdsUsed;
+    private Button _button;
+    private CanvasGroup _buttonCanvasGroup;
+    
+
+    public static Action OnHintUsed;
+
+    private bool _doesHaveHints;
 
     private void Awake()
     {
         _button = GetComponent<Button>();
-        _canvasGroup = GetComponent<CanvasGroup>();
+        _buttonCanvasGroup = GetComponent<CanvasGroup>();
     }
 
     void OnEnable()
     {
         _button.onClick.AddListener(Clicked);
-        if (!_isAdHintButton) CanvasEventBus.OnGameLoaded += UpdateHintAmount;
-        if (!_isAdHintButton) ProgressBar.OnProgressBarReset += ShowAndIncrease;
-        if (_isAdHintButton) YG2.onCloseRewardedAdv += SquareManager.Instance.ShowRandomWord;
+        ProgressBar.OnProgressBarReset += ShowAndIncrease;
+        CanvasEventBus.OnGameLoaded += () => _buttonCanvasGroup.interactable = true; 
     }
 
     void OnDisable()
     {
         _button.onClick.RemoveAllListeners();
-        if (!_isAdHintButton) CanvasEventBus.OnGameLoaded -= UpdateHintAmount;
-        if (!_isAdHintButton) ProgressBar.OnProgressBarReset -= ShowAndIncrease;
-        if (_isAdHintButton) YG2.onCloseRewardedAdv -= SquareManager.Instance.ShowRandomWord;
+        ProgressBar.OnProgressBarReset -= ShowAndIncrease;
+        CanvasEventBus.OnGameLoaded -= () => _buttonCanvasGroup.interactable = true; 
+    }
+
+    void Start()
+    {
+        UpdateHintAmount();
     }
 
 
     private void UpdateHintAmount()
     {
-        _text.text = PlayerManager.Instance.GetHintAmount().ToString();
-        _canvasGroup.interactable = true;
-        _canvasGroup.ignoreParentGroups = false;
+        int newHintAmount = PlayerManager.Instance.GetHintAmount();
+
+
+        if (newHintAmount <= 0)
+        {
+            _doesHaveHints = false;
+            _adIconCanvasGroup.alpha = 1f;
+            _text.text = "+3";
+        }
+        else
+        {
+            _doesHaveHints = true;
+            _text.text = newHintAmount.ToString();
+            _adIconCanvasGroup.alpha = 0f;
+        }
+
+        _buttonCanvasGroup.interactable = true;
+        _buttonCanvasGroup.ignoreParentGroups = false;
     }
 
 
     private void Clicked()
     {
-        if (_isAdHintButton) ClickedWithAds();
-        else ClickedWithoutAds();
-
-    }
-
-    private void ClickedWithAds()
-    {
-
-        YG2.RewardedAdvShow("0");
-
-    }
-
-    private void ClickedWithoutAds()
-    {
-        if (PlayerManager.Instance.GetHintAmount() <= 0)
+        if (_doesHaveHints)
         {
-            SoundManager.Instance.Play(SoundManager.SoundInfoName.wordNotGuessed, 0.8f);
-
-            TweenColor.Create()
-            .Origin(Color.white)
-            .Destination(Color.red)
-            .Duration(0.6f)
-            .Loop(TweenLoop.YoYo)
-            .Condition(tween => tween.ExecutionCount < 2)
-            .Easing(Ease.Circ)
-            .OnUpdate(tween => _text.color = tween.Value)
-            .OnEnd(tween => _text.color = Color.white)
-            .Start();
-
-            return;
+            TryToUseHint();
+        }
+        else
+        {
+            AddHintsForAd();
         }
 
+    }
+
+    private void AddHintsForAd()
+    {
+        YG2.RewardedAdvShow("0");
+        
+        YG2.saves.hintAmount += 3;
+        YG2.SaveProgress();
+
+        _buttonCanvasGroup.interactable = false;
+        UpdateHintAmount();
+    }
+
+    private void TryToUseHint()
+    {
+        
         if (!SquareManager.Instance.CanShowRandomWord()) return;
         SquareManager.Instance.ShowRandomWord();
-        OnHintWithoutAdsUsed?.Invoke();
+        OnHintUsed?.Invoke();
         UpdateHintAmount();
     }
 
@@ -91,9 +107,12 @@ public class HintButton : MonoBehaviour
     private void ShowAndIncrease()
     {
         
-        _canvasGroup.alpha = 0;
-        _canvasGroup.interactable = false;
-        _canvasGroup.ignoreParentGroups = true;
+        _buttonCanvasGroup.alpha = 0;
+        _buttonCanvasGroup.interactable = false;
+        _buttonCanvasGroup.ignoreParentGroups = true;
+
+        _adIconCanvasGroup.alpha = 0;
+
         bool flag = false;
         
 
@@ -104,7 +123,7 @@ public class HintButton : MonoBehaviour
         .Duration(TweenSettings.Instance.ProgressBarResetTime)
         .OnUpdate(tween =>
         {
-            _canvasGroup.alpha = tween.Value;
+            _buttonCanvasGroup.alpha = tween.Value;
             if (!flag && tween.Value >= 0.5f)
             {
                 _text.text += "+2";
