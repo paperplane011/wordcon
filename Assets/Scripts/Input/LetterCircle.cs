@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using System.Threading.Tasks;
 
 public class LetterCircle : MonoBehaviour
 {
@@ -30,21 +31,23 @@ public class LetterCircle : MonoBehaviour
     [SerializeField] private float _angleStep7Letters;
 
 
-    private List<GameObject> _spawnedLetterButtonsList = new();
+    private List<LetterButton> _spawnedLetterButtonsList = new();
 
 
     void OnEnable()
     {
         SquareManager.Instance.OnLevelSOSetupped += SpawnLetterButtons;
+        ShuffleLettersButton.OnShuffleLettersButtonClicked += ShuffleLettersInLetterButtonCircle;
     }
 
     void OnDisable()
     {
         SquareManager.Instance.OnLevelSOSetupped -= SpawnLetterButtons;
+        ShuffleLettersButton.OnShuffleLettersButtonClicked -= ShuffleLettersInLetterButtonCircle;
     }
 
 
-    private string Shuffle(string input)
+    private string ShuffleString(string input)
     {
         if (string.IsNullOrEmpty(input))
             return input;
@@ -62,6 +65,19 @@ public class LetterCircle : MonoBehaviour
         return new string(chars);
     }
 
+    public void ShuffleLettersInLetterButtonCircle()
+    {
+        string letterButtonsToSpawn = SquareManager.Instance.GetLettersForLetterCircle();
+        letterButtonsToSpawn = ShuffleString(letterButtonsToSpawn);
+
+        int i = 0;
+        foreach (LetterButton letterButton in _spawnedLetterButtonsList)
+        {
+            letterButton.SetButtonChar(letterButtonsToSpawn[i]);
+            i++;
+        }
+    }
+
 
 
     private void SpawnLetterButtons()
@@ -69,16 +85,15 @@ public class LetterCircle : MonoBehaviour
         DeleteExistingButtons();
 
         string letterButtonsToSpawn = SquareManager.Instance.GetLettersForLetterCircle();
-        letterButtonsToSpawn = Shuffle(letterButtonsToSpawn);
+        letterButtonsToSpawn = ShuffleString(letterButtonsToSpawn);
         int numOfLettersToSpawn = letterButtonsToSpawn.Length;
         SetupCircularLayout(numOfLettersToSpawn);
 
         int id = 1;
         for (int i = 0; i < numOfLettersToSpawn; i++)
         {
-            var newLetterButtonGO = Instantiate(_letterButtonGO, transform);
-            _spawnedLetterButtonsList.Add(newLetterButtonGO);
-            var newLetterButton = newLetterButtonGO.GetComponent<LetterButton>();
+            var newLetterButton = Instantiate(_letterButtonGO, transform).GetComponent<LetterButton>();
+            _spawnedLetterButtonsList.Add(newLetterButton);
 
             newLetterButton.SetID(id);
             id++;
@@ -93,7 +108,7 @@ public class LetterCircle : MonoBehaviour
         if (_spawnedLetterButtonsList.Count == 0) return;
         foreach (var button in _spawnedLetterButtonsList)
         {
-            Destroy(button);
+            Destroy(button.gameObject);
         }
 
         _spawnedLetterButtonsList.Clear();
