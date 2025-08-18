@@ -15,14 +15,14 @@ MonoBehaviour:
   LevelNum: 39
   LevelLetters: "\u0420\u041E\u0421\u0422\u0410"
   LayoutString:
-    _gridData: "   \u0422\u041E\u0420      \u041E    \u0422 \u0422   \u0420\u041E\u0421\u0410   
+    _gridData: "   \u0422\u0410\u0420\u041E     \u041E    \u0422 \u0422   \u0420\u041E\u0421\u0410   
       \u0420    \u0420\u041E\u0421\u0422         "
   WordsPositions:
     _serializedList:
     - Key: "\u0420\u041E\u0422\u0410"
       Value: 050000000c000000130000001a000000
-    - Key: "\u0422\u041E\u0420"
-      Value: 030000000400000005000000
+    - Key: "\u0422\u0410\u0420\u041E"
+      Value: 03000000040000000500000006000000
     - Key: "\u0420\u041E\u0421\u0410"
       Value: 1700000018000000190000001a000000
     - Key: "\u0422\u041E\u0420\u0421"

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 836232dedd0f7564697930e6d43a9c56, type: 3}
-  m_Name: LevelSO
+  m_Name: LevelSO 5
   m_EditorClassIdentifier: 
-  LevelNum: 26
+  LevelNum: 33
   LevelLetters: "\u041A\u041E\u041C\u0410\u0420"
   LayoutString:
     _gridData: "        \u041C\u0420\u0410\u041A      \u041E   \u041A\u041E\u0420\u041C\u0410 
@@ -27,3 +27,5 @@ MonoBehaviour:
       Value: 160000001d000000240000002b000000
     - Key: "\u0420\u041E\u041C"
       Value: 270000002800000029000000
+    - Key: "\u041A\u041E\u041C\u0410\u0420"
+      Value: 0b00000012000000190000002000000027000000

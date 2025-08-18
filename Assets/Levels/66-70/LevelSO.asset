@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836232dedd0f7564697930e6d43a9c56, type: 3}
+  m_Name: LevelSO
+  m_EditorClassIdentifier: 
+  LevelNum: 66
+  LevelLetters: "\u0413\u0420\u0410\u0424\u0418\u041A"
+  LayoutString:
+    _gridData: "        \u0418\u0413\u0420\u0410    \u0420    \u0413\u0420\u0410\u0424\u0418\u041A
+      \u0420 \u0424 \u041A  \u0418   \u0420  \u0424   \u0410  "
+  WordsPositions:
+    _serializedList:
+    - Key: "\u0418\u0413\u0420\u0410"
+      Value: 08000000090000000a0000000b000000
+    - Key: "\u0413\u0420\u0410\u0424"
+      Value: 0900000010000000170000001e000000
+    - Key: "\u0413\u0420\u0410\u0424\u0418\u041A"
+      Value: 15000000160000001700000018000000190000001a000000
+    - Key: "\u0413\u0420\u0418\u0424"
+      Value: 150000001c000000230000002a000000
+    - Key: "\u0418\u041A\u0420\u0410"
+      Value: 1900000020000000270000002e000000

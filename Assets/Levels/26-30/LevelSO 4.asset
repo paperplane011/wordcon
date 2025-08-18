@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 836232dedd0f7564697930e6d43a9c56, type: 3}
-  m_Name: LevelSO 2
+  m_Name: LevelSO 4
   m_EditorClassIdentifier: 
-  LevelNum: 33
+  LevelNum: 26
   LevelLetters: "\u0427\u0410\u0421\u042B\u041C"
   LayoutString:
     _gridData: "          \u0421 \u041C \u0427\u0410\u0421\u042B \u042B    \u0427\u0410\u0421                      "

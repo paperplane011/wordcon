@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836232dedd0f7564697930e6d43a9c56, type: 3}
+  m_Name: LevelSO
+  m_EditorClassIdentifier: 
+  LevelNum: 71
+  LevelLetters: "\u0413\u041E\u0420\u041E\u0414\u041D\u042F"
+  LayoutString:
+    _gridData: "                    \u042F    \u042F\u0420\u0414\u0413\u041E\u0420\u041E\u0414 
+      \u041E   \u0420\u041E\u0414\u0414 \u0414\u041D\u041E  "
+  WordsPositions:
+    _serializedList:
+    - Key: "\u0413\u041E\u0420\u041E\u0414"
+      Value: 1c0000001d0000001e0000001f00000020000000
+    - Key: "\u042F\u0420\u0414"
+      Value: 190000001a0000001b000000
+    - Key: "\u042F\u0414"
+      Value: 140000001b000000
+    - Key: "\u0413\u041E\u0414"
+      Value: 1c000000230000002a000000
+    - Key: "\u0420\u041E\u0414"
+      Value: 270000002800000029000000
+    - Key: "\u0414\u041D\u041E"
+      Value: 2c0000002d0000002e000000
+    - Key: "\u042F\u0414\u0420\u041E"
+      Value: 1900000020000000270000002e000000
