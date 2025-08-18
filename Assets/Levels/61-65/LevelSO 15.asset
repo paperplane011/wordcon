@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836232dedd0f7564697930e6d43a9c56, type: 3}
   m_Name: LevelSO 15
   m_EditorClassIdentifier: 
-  LevelNum: 80
+  LevelNum: 65
   LevelLetters: "\u0422\u0418\u0420\u0410\u0414\u0410"
   LayoutString:
     _gridData: "        \u0422\u0420\u0418\u0410\u0414\u0410 \u0418      \u0420     
