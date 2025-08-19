@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 8522744a7242814439fd7829ad85b33c
+guid: 603240591ac844246bd810397f04dba9
 labels:
 - Terrain
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -952243503646409976
-    second: ComfyUI_00169__0
+      213: 2523412253021923712
+    second: ComfyUI_00004__0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -141,13 +141,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ComfyUI_00169__0
+      name: ComfyUI_00004__0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 768
-        height: 1344
+        width: 512
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,8 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 80b7b712493f8c2f0800000000000000
-      internalID: -952243503646409976
+      spriteID: 0896d331316f40320800000000000000
+      internalID: 2523412253021923712
       vertices: []
       indices: 
       edges: []
@@ -176,7 +176,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ComfyUI_00169__0: -952243503646409976
+      ComfyUI_00004__0: 2523412253021923712
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

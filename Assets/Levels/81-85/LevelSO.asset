@@ -15,8 +15,9 @@ MonoBehaviour:
   LevelNum: 81
   LevelLetters: "\u0413\u041E\u0420\u041C\u0410\u041D"
   LayoutString:
-    _gridData: "   \u0420    \u0413\u0420\u041E\u041C     \u041C   \u0413\u041E\u0420\u0410  
-      \u041D  \u041D\u041E\u0413\u0410\u041E      \u041C\u041E\u0420\u0413   "
+    _gridData: "   \u0420    \u0413\u0420\u041E\u041C     \u041C \u0410 \u0413\u041E\u0420\u0410
+      \u0420 \u041D  \u041D\u041E\u0413\u0410\u041E    \u041E \u041C\u041E\u0420\u0413
+      \u041D "
   WordsPositions:
     _serializedList:
     - Key: "\u0420\u041E\u041C\u0410\u041D"
@@ -31,3 +32,5 @@ MonoBehaviour:
       Value: 150000001c000000230000002a000000
     - Key: "\u041C\u041E\u0420\u0413"
       Value: 2a0000002b0000002c0000002d000000
+    - Key: "\u0410\u0420\u0413\u041E\u041D"
+      Value: 130000001a00000021000000280000002f000000
