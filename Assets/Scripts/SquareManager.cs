@@ -90,12 +90,8 @@ public class SquareManager : MonoBehaviour
         {
             SetupNewLevelSO(levelSO);
         }
-        else
-        {
-            CanvasManager.Instance.OnLevelsEndBehaviour();
-        }
-
     }
+    
     void Start()
     {
         SpawnSquares();

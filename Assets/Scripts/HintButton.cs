@@ -31,14 +31,14 @@ public class HintButton : MonoBehaviour
     {
         _button.onClick.AddListener(Clicked);
         ProgressBar.OnProgressBarReset += ShowAndIncrease;
-        CanvasEventBus.OnGameLoaded += () => _buttonCanvasGroup.interactable = true; 
+        CanvasEventBus.OnGameLoaded += UpdateHintAmount;
     }
 
     void OnDisable()
     {
         _button.onClick.RemoveAllListeners();
         ProgressBar.OnProgressBarReset -= ShowAndIncrease;
-        CanvasEventBus.OnGameLoaded -= () => _buttonCanvasGroup.interactable = true; 
+        CanvasEventBus.OnGameLoaded -= UpdateHintAmount;
     }
 
     void Start()

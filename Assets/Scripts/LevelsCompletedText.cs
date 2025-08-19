@@ -12,14 +12,21 @@ public class LevelsCompletedText : MonoBehaviour
     void OnEnable()
     {
         CanvasEventBus.OnResultsLoaded += ShowNextLevel;
+        CanvasEventBus.OnLevelsEnd += Reset;
     }
 
     void OnDisable()
     {
-        CanvasEventBus.OnResultsLoaded += ShowNextLevel;
+        CanvasEventBus.OnResultsLoaded -= ShowNextLevel;
+        CanvasEventBus.OnLevelsEnd -= Reset;
     }
 
     void Start()
+    {
+        Reset();
+    }
+
+    private void Reset()
     {
         _levelsCompleted = PlayerManager.Instance.GetCurrentLevelNum();
         _text.text = _levelsCompleted.ToString() + _postfix;
@@ -44,7 +51,7 @@ public class LevelsCompletedText : MonoBehaviour
             {
                 SoundManager.Instance.Play(SoundManager.SoundInfoName.progressBarStep);
             }
-            
+
         })
         .Start();
 

@@ -30,12 +30,14 @@ public class ProgressBar : MonoBehaviour
     {
         CanvasEventBus.OnResultsLoaded += GoToNextPos;
         CanvasEventBus.OnGameLoaded += HideButtons;
+        CanvasEventBus.OnLevelsEnd += SetStartPos;
     }
 
     void OnDisable()
     {
         CanvasEventBus.OnResultsLoaded -= GoToNextPos;
         CanvasEventBus.OnGameLoaded -= HideButtons;
+        CanvasEventBus.OnLevelsEnd -= SetStartPos;
     }
 
     void Start()

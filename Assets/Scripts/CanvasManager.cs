@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using FronkonGames.TinyTween;
 using UnityEditor.Rendering;
 using UnityEngine;
+using YG;
 
 
 public struct CanvasInfo
@@ -92,6 +93,8 @@ public class CanvasManager : MonoBehaviour
         _currentCanvasGroup.blocksRaycasts = true;
         FireEventsAfterLoading(_startCanvasType);
     }
+
+    
 
 
     public CanvasGroup GetCanvasGroupForCanvasType(CanvasType canvasType)
@@ -211,8 +214,17 @@ public class CanvasManager : MonoBehaviour
 
     public void GameEndBehaviour()
     {
-        LoadCanvasGroup(CanvasType.Results, LoadCanvasMode.Additive);
-        CanvasEventBus.OnGameEnd?.Invoke();
+        if (YG2.saves.currentLevel < 100)
+        {
+            LoadCanvasGroup(CanvasType.Results, LoadCanvasMode.Additive);
+            CanvasEventBus.OnGameEnd?.Invoke();
+        }
+        else
+        {
+            LoadCanvasGroup(CanvasType.LevelsEndInfo);
+            CanvasEventBus.OnLevelsEnd?.Invoke();
+        }
+        
     }
 
     public void OnLevelsEndBehaviour()

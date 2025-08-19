@@ -55,6 +55,7 @@ public class BackgroundChanger : MonoBehaviour
     public void SetNextBackground()
     {
         _currentBackgroundNum++;
+        if (_currentBackgroundNum >= _backgroundsList.Count) return;
         _backImage.sprite = _backgroundsList[_currentBackgroundNum];
         
 
