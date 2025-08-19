@@ -33,6 +33,8 @@ public class Square : MonoBehaviour
         UpdateVisuals();
     }
 
+    
+
     public void SetID(int newID)
     {
         ID = newID;

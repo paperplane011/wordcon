@@ -1,15 +1,16 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
-[RequireComponent(typeof(HoverChecker), typeof(LetterButtonVisuals))]
+[RequireComponent(typeof(HoverChecker))]
 public class LetterButton : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _letterText;
+    [SerializeField] private Image _image;
     
     private HoverChecker _hoverChecker;
-    private LetterButtonVisuals _letterButtonVisuals;
 
     public static Action<char> OnLetterButtonPressed;
 
@@ -22,7 +23,6 @@ public class LetterButton : MonoBehaviour
     private void Awake()
     {
         _hoverChecker = GetComponent<HoverChecker>();
-        _letterButtonVisuals = GetComponent<LetterButtonVisuals>();
     }
 
     void OnEnable()
@@ -35,10 +35,17 @@ public class LetterButton : MonoBehaviour
         LetterInput.OnWordEnterEnd -= ResetButton;
     }
 
+    void Start()
+    {
+        ResetButton();
+    }
+
     private void ResetButton()
     {
         _isButtonUsed = false;
-        _letterButtonVisuals.ButtonResetBehaviour();
+        _letterText.color = Color.black;
+        _image.color = Color.white;
+
     }
 
     public void SetButtonChar(char newChar)
@@ -58,8 +65,9 @@ public class LetterButton : MonoBehaviour
         if (!_isButtonUsed && _hoverChecker.IsCursorHovered && Input.GetMouseButton(0))
         {
             OnLetterButtonPressed?.Invoke(ButtonChar);
-            _letterButtonVisuals.ButtonClickedBehaviour();
             _isButtonUsed = true;
+            _letterText.color = Color.white;
+            _image.color = Color.grey;
 
             LetterButtonsLineConnectorHandler.Instance.EnableLineToButton(ID);
 

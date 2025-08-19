@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1212711662986573314}
   - component: {fileID: 6096762563660974579}
   - component: {fileID: 1206839705564624154}
-  - component: {fileID: 4610229734910599857}
   m_Layer: 5
   m_Name: LetterButton
   m_TagString: Untagged
@@ -31,7 +30,7 @@ RectTransform:
   m_GameObject: {fileID: 4605886593421514732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 2.2, y: 2.2, z: 2.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5322826844624369362}
@@ -70,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 43861ff267927cd419b1c0f05a41ae3b, type: 3}
+  m_Sprite: {fileID: -4253581921769723866, guid: 74e00df7d990a014d84fb6f988400cb4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -93,6 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _letterText: {fileID: 5298250001090677897}
+  _image: {fileID: 6092413175555608269}
 --- !u!114 &6096762563660974579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,21 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8d2a3926b32904e807f7a0e0603e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4610229734910599857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4605886593421514732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3f7bb1b76306240975e985618f9a14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 6092413175555608269}
-  _clickedButtonSprite: {fileID: -8028557831358942340, guid: 2bfc6b0c2f4a155469ee4260fb637fea, type: 3}
-  _notClickedButtonSprite: {fileID: 21300000, guid: 43861ff267927cd419b1c0f05a41ae3b, type: 3}
 --- !u!1 &8608644343711977752
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,8 +192,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4282335039
+  m_fontColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -225,13 +210,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.2
-  m_fontSizeBase: 57.2
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 32
   m_VerticalAlignment: 512
   m_textAlignment: 65535
