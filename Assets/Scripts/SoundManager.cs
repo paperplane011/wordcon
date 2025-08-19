@@ -90,32 +90,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void Stop(SoundInfoName soundName)
-    {
-        if (soundDictionary.TryGetValue(soundName, out SoundInfo sound))
-        {
-            sound.source.Stop();
-        }
-    }
+   
 
-    public void SetVolume(SoundInfoName soundName, float volume)
-    {
-        if (soundDictionary.TryGetValue(soundName, out SoundInfo sound))
-        {
-            sound.source.volume = Mathf.Clamp(volume, 0f, 1f);
-        }
-    }
-
-    public void SetPitch(SoundInfoName soundName, float pitch)
-    {
-        if (soundDictionary.TryGetValue(soundName, out SoundInfo sound))
-        {
-            sound.source.pitch = Mathf.Clamp(pitch, 0.1f, 3f);
-        }
-    }
-
-    public void ToggleMuteAll(bool mute)
-    {
-        AudioListener.volume = mute ? 0 : 1;
-    }
+    
 }

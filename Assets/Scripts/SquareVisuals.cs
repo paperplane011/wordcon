@@ -14,7 +14,11 @@ public class SquareVisuals : MonoBehaviour
     [SerializeField] private Color _emptySquareColor;
     [SerializeField] private Color _letterSquareNotGuessedColor;
     private Color _letterSquareGuessedColor = Color.white;
-    
+
+    private void Start()
+    {
+        _image.color = new Color(0f, 0f, 0f, 0f);
+    }
 
     public void UpdateVisuals(bool isEmpty, string letter, bool isLetterGuessed)
     {
@@ -28,7 +32,7 @@ public class SquareVisuals : MonoBehaviour
         if (isLetterGuessed)
         {
             _text.text = letter;
-            
+
 
             TweenColor.Create()
             .Origin(_image.color)
@@ -42,7 +46,7 @@ public class SquareVisuals : MonoBehaviour
         else
         {
             _text.text = "";
-
+            if (isEmpty) return;
             TweenColor.Create()
             .Origin(_image.color)
             .Destination(_letterSquareNotGuessedColor)

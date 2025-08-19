@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 using FronkonGames.TinyTween;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,20 +33,21 @@ public class SquareManager : MonoBehaviour
     }
 
     [SerializeField] private GameObject _squarePrefab;
-    [SerializeField] private GridLayoutGroup _gridLayoutGroup;
     [SerializeField] private Image _levelEndBlinkImage;
-    private RectTransform _gridLayoutGroupRectTransform;
+
 
     private LevelSO _levelSO;
     public Action OnLevelSOSetupped;
 
-    private Dictionary<int, Square> _idToSquareDict;
+
+    private Dictionary<int, Square> _idToSquareDict = new();
+    [SerializeField][HideInInspector]
+    private List<Square> _squareList = new();
     private int _numOfWords;
 
     private Dictionary<string, bool> _guessedWordsDictionary = new();
 
-    [HideInInspector]
-    public float SquareTweenDelta = 0f;
+
 
     private void Awake()
     {
@@ -58,7 +61,6 @@ public class SquareManager : MonoBehaviour
             _instance = this;
         }
 
-        _gridLayoutGroupRectTransform = _gridLayoutGroup.GetComponent<RectTransform>();
     }
 
     void Update()
@@ -91,45 +93,23 @@ public class SquareManager : MonoBehaviour
             SetupNewLevelSO(levelSO);
         }
     }
-    
+
     void Start()
     {
-        SpawnSquares();
+        SerializeDictionary();
+        ClearSquares();
     }
 
-    private void SpawnSquares()
+    private void SerializeDictionary()
     {
         _idToSquareDict = new();
-
         for (int i = 0; i <= 48; i++)
         {
-            GameObject newSquareGO = Instantiate(_squarePrefab, transform);
-            Square newSquare = newSquareGO.GetComponent<Square>();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_gridLayoutGroupRectTransform);
-            newSquare.SetID(i);
-            _idToSquareDict.Add(i, newSquare);
-
+            _idToSquareDict.Add(i, _squareList[i]);
         }
-
-        _gridLayoutGroup.enabled = false;
-
-        TweenFloat.Create()
-        .Origin(-TweenSettings.Instance.SquareFloatPosDelta)
-        .Destination(TweenSettings.Instance.SquareFloatPosDelta)
-        .Duration(TweenSettings.Instance.SquareFloatSpeed)
-        .Easing(Ease.Sine)
-        .OnUpdate(tween => SquareTweenDelta = tween.Value)
-        .Loop(TweenLoop.YoYo)
-        .Start();
-
-        foreach (Square square in _idToSquareDict.Values)
-        {
-            square.CanBeTweened = true;
-        }
-
-
-
     }
+
+   
 
     private void SetLayout(string layout)
     {
@@ -232,7 +212,7 @@ public class SquareManager : MonoBehaviour
     {
         yield return new WaitForSeconds(TweenSettings.Instance.GameEndDelay);
         CanvasManager.Instance.GameEndBehaviour();
-        
+
     }
 
     IEnumerator SetSquaresAsGuessed(int[] ids)
@@ -292,10 +272,24 @@ public class SquareManager : MonoBehaviour
         else return true;
     }
 
+    [Button]
+    private void FillSquaresList()
+    {
+        int id = 0;
+        _idToSquareDict.Clear();
+        foreach (Transform child in transform)
+        {
+            Square newSquare = child.GetComponent<Square>();
+            newSquare.SetID(id);
+            _squareList.Add(newSquare);
+            Debug.Log("square added: " + id);
+            id++;
+        }
+    }
 
 
 
-    
+
 
 
 }

@@ -107,10 +107,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rectTransform: {fileID: 2944163732002127795}
-  _isEmpty: 1
+  _isEmpty: 0
   _letter: A
   _isLetterGuessed: 0
-  CanBeTweened: 0
 --- !u!1 &2506916014387621665
 GameObject:
   m_ObjectHideFlags: 0
