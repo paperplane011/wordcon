@@ -1,9 +1,9 @@
+using System;
 using FronkonGames.TinyTween;
-using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(SquareVisuals))]
-[ExecuteInEditMode]
 public class Square : MonoBehaviour
 {
     [SerializeField] RectTransform _rectTransform;
@@ -18,21 +18,49 @@ public class Square : MonoBehaviour
     [SerializeField] private bool _isLetterGuessed = false;
 
     private SquareVisuals _squareVisuals;
+    [SerializeField] private Button _button;
+
     public int ID { get; private set; }
 
-    
+    public static Action OnSquareClickedAfterHintUsed;
+
+
 
     private void Awake()
     {
         _squareVisuals = GetComponent<SquareVisuals>();
     }
 
+    void OnEnable()
+    {
+        _button.onClick.AddListener(ClickedAfterLetterHintUsed);
+        HintButton.OnHintLetterUsed += () => _button.interactable = true;
+        OnSquareClickedAfterHintUsed += () => _button.interactable = false;
+        
+    }
+
+    void OnDisable()
+    {
+        _button.onClick.RemoveAllListeners();
+        HintButton.OnHintLetterUsed -= () => _button.interactable = true;
+        OnSquareClickedAfterHintUsed -= () => _button.interactable = false;
+    }
+
+
+
     private void Start()
     {
-        
+        _button.interactable = false;
         UpdateVisuals();
     }
 
+
+    private void ClickedAfterLetterHintUsed()
+    {
+        SetGuessed(true);
+
+        OnSquareClickedAfterHintUsed?.Invoke();
+    }
     
 
     public void SetID(int newID)

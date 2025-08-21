@@ -72,20 +72,20 @@ public class SquareManager : MonoBehaviour
         {
             foreach (var word in _levelSO.WordsPositions.Keys)
             {
-                ShowTheWord(word);
+                ShowWordIfCorrect(word);
             }
         }
     }
 
     void OnEnable()
     {
-        LetterInput.OnWordEnterEndWord += ShowTheWord;
+        LetterInput.OnWordEnterEndWord += ShowWordIfCorrect;
         CanvasEventBus.OnGameLoaded += OnGameCanvasLoadedBehaviour;
     }
 
     void OnDisable()
     {
-        LetterInput.OnWordEnterEndWord -= ShowTheWord;
+        LetterInput.OnWordEnterEndWord -= ShowWordIfCorrect;
         CanvasEventBus.OnGameLoaded -= OnGameCanvasLoadedBehaviour;
     }
 
@@ -162,7 +162,7 @@ public class SquareManager : MonoBehaviour
     }
 
 
-    public void ShowTheWord(string word)
+    public void ShowWordIfCorrect(string word)
     {
         word = word.ToUpper();
 
@@ -175,7 +175,7 @@ public class SquareManager : MonoBehaviour
         }
 
         int[] ids;
-        if (_levelSO.WordsPositions.TryGetValue(word, out ids)) // word guessed
+        if (_levelSO.WordsPositions.TryGetValue(word, out ids)) // correct word
         {
             StartCoroutine(SetSquaresAsGuessed(ids));
             CorrectWordBlink();
@@ -191,7 +191,7 @@ public class SquareManager : MonoBehaviour
                 StartCoroutine(InitializeGameEndBehaviourWithDelay());
             }
         }
-        else
+        else // incorrect word
         {
             OnWrongWordEntered?.Invoke(word);
             SoundManager.Instance.Play(SoundManager.SoundInfoName.wordNotGuessed);
@@ -264,7 +264,7 @@ public class SquareManager : MonoBehaviour
         {
             if (_guessedWordsDictionary[word] == false)
             {
-                ShowTheWord(word);
+                ShowWordIfCorrect(word);
                 return;
             }
         }

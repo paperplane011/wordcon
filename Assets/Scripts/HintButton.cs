@@ -12,12 +12,14 @@ public class HintButton : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private CanvasGroup _adIconCanvasGroup; // show ad icon when there is no hints
+    [SerializeField] private bool _isWordHint = true;
 
     private Button _button;
     private CanvasGroup _buttonCanvasGroup;
     
 
-    public static Action OnHintUsed;
+    public static Action OnHintWordUsed;
+    public static Action OnHintLetterUsed;
 
     private bool _doesHaveHints;
 
@@ -49,14 +51,22 @@ public class HintButton : MonoBehaviour
 
     private void UpdateHintAmount()
     {
-        int newHintAmount = PlayerManager.Instance.GetHintAmount();
+        int newHintAmount = (_isWordHint) ? PlayerManager.Instance.GetHintWordAmount() : PlayerManager.Instance.GetHintLetterAmount();
 
 
         if (newHintAmount <= 0)
         {
             _doesHaveHints = false;
             _adIconCanvasGroup.alpha = 1f;
-            _text.text = "+3";
+            if (_isWordHint)
+            {
+                _text.text = "+1";
+            }
+            else
+            {
+                _text.text = "+2";
+            }
+            
         }
         else
         {
@@ -74,7 +84,15 @@ public class HintButton : MonoBehaviour
     {
         if (_doesHaveHints)
         {
-            TryToUseHint();
+            if (_isWordHint)
+            {
+                TryToUseHintWord();
+            }
+            else
+            {
+                TryToUseHintLetter();
+            }
+            
         }
         else
         {
@@ -86,27 +104,45 @@ public class HintButton : MonoBehaviour
     private void AddHintsForAd()
     {
         YG2.RewardedAdvShow("0");
+
+        if (_isWordHint)
+        {
+            YG2.saves.hintAmountWord += 1;
+        }
+        else
+        {
+            YG2.saves.hintAmountLetter += 2;
+        }
         
-        YG2.saves.hintAmount += 3;
         YG2.SaveProgress();
 
         _buttonCanvasGroup.interactable = false;
         UpdateHintAmount();
     }
 
-    private void TryToUseHint()
+    private void TryToUseHintWord()
     {
         
         if (!SquareManager.Instance.CanShowRandomWord()) return;
         SquareManager.Instance.ShowRandomWord();
-        OnHintUsed?.Invoke();
+        OnHintWordUsed?.Invoke();
         UpdateHintAmount();
     }
+
+    private void TryToUseHintLetter()
+    {
+        
+
+        OnHintLetterUsed?.Invoke();
+        UpdateHintAmount();
+    }
+    
+
 
 
     private void ShowAndIncrease()
     {
-        
+
         _buttonCanvasGroup.alpha = 0;
         _buttonCanvasGroup.interactable = false;
         _buttonCanvasGroup.ignoreParentGroups = true;
@@ -114,7 +150,7 @@ public class HintButton : MonoBehaviour
         _adIconCanvasGroup.alpha = 0;
 
         bool flag = false;
-        
+
 
         TweenFloat.Create()
         .Origin(0f)
@@ -126,18 +162,25 @@ public class HintButton : MonoBehaviour
             _buttonCanvasGroup.alpha = tween.Value;
             if (!flag && tween.Value >= 0.5f)
             {
-                _text.text += "+2";
+                if (_isWordHint)
+                {
+                    _text.text = "+1";
+                }
+                else
+                {
+                    _text.text = "+2";
+                }
                 SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked, 1.3f);
                 flag = true;
             }
         })
         .OnEnd(tween =>
         {
-            _text.text = PlayerManager.Instance.GetHintAmount().ToString();
+            _text.text = (_isWordHint) ? PlayerManager.Instance.GetHintWordAmount().ToString() : PlayerManager.Instance.GetHintLetterAmount().ToString();
             SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked);
         })
         .Start();
-        
+
     }
     
     

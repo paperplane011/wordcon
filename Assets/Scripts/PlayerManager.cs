@@ -8,7 +8,9 @@ namespace YG
     public partial class SavesYG
     {
         public int currentLevel;
-        public int hintAmount;
+        public int hintAmountWord;
+        public int hintAmountLetter;
+
     }
 }
 
@@ -59,7 +61,8 @@ public class PlayerManager : MonoBehaviour
     void OnEnable()
     {
         CanvasEventBus.OnGameEnd += GameEndBehaviour;
-        HintButton.OnHintUsed += OnHintUsed;
+        HintButton.OnHintWordUsed += OnHintWordUsed;
+        HintButton.OnHintLetterUsed += OnHintLetterUsed;
         YG2.onDefaultSaves += EmptySavesBehaviour;
         CanvasEventBus.OnLevelsEnd += OnLevelEndBehavior;
 
@@ -69,15 +72,21 @@ public class PlayerManager : MonoBehaviour
     void OnDisable()
     {
         CanvasEventBus.OnGameEnd -= GameEndBehaviour;
-        HintButton.OnHintUsed -= OnHintUsed;
+        HintButton.OnHintWordUsed -= OnHintWordUsed;
+        HintButton.OnHintLetterUsed -= OnHintLetterUsed;
         YG2.onDefaultSaves -= EmptySavesBehaviour;
         CanvasEventBus.OnLevelsEnd -= OnLevelEndBehavior;
 
     }
 
-    private void OnHintUsed()
+    private void OnHintWordUsed()
     {
-        YG2.saves.hintAmount--;
+        YG2.saves.hintAmountWord--;
+    }
+
+    private void OnHintLetterUsed()
+    {
+        YG2.saves.hintAmountLetter--;
     }
 
 
@@ -92,7 +101,8 @@ public class PlayerManager : MonoBehaviour
 
         if ((YG2.saves.currentLevel - 1) % 5 == 0)
         {
-            YG2.saves.hintAmount += 2;
+            YG2.saves.hintAmountWord += 1;
+            YG2.saves.hintAmountLetter += 2;
         }
 
         YG2.SaveProgress();
@@ -101,22 +111,30 @@ public class PlayerManager : MonoBehaviour
     private void EmptySavesBehaviour()
     {
         YG2.saves.currentLevel = 1;
-        YG2.saves.hintAmount = 2;
+        YG2.saves.hintAmountWord = 2;
+        YG2.saves.hintAmountLetter = 3;
         Debug.Log("first game session!");
     }
 
 
-    public int GetHintAmount()
+    public int GetHintWordAmount()
     {
-        return YG2.saves.hintAmount;
+        return YG2.saves.hintAmountWord;
     }
+
+    public int GetHintLetterAmount()
+    {
+        return YG2.saves.hintAmountLetter;
+    }
+    
+
 
     private void OnLevelEndBehavior()
     {
         YG2.saves.currentLevel = 1;
-        YG2.saves.hintAmount = 2;
+        YG2.saves.hintAmountWord = 2;
         YG2.SaveProgress();
-        
+
     }
 
    
