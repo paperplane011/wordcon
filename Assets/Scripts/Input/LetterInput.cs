@@ -7,7 +7,11 @@ using UnityEngine;
 public class LetterInput : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _inputTextComp;
+    [SerializeField] private RectTransform _panelRectTransform;
+
     private string _inputText;
+
+    
 
     public static Action<string> OnWordEnterEndWord;
     public static Action OnWordEnterEnd;
@@ -24,20 +28,36 @@ public class LetterInput : MonoBehaviour
     void OnEnable()
     {
         LetterButton.OnLetterButtonPressed += AddChar;
+        SquareManager.OnWrongWordEntered += ShowWrongWordMessage;
+        SquareManager.OnExistingWordEntered += ShowExistingWordMessage;
+        SquareManager.OnCorrectWordEntered += () => Reset();
     }
 
     void OnDisable()
     {
         LetterButton.OnLetterButtonPressed -= AddChar;
+        SquareManager.OnWrongWordEntered -= ShowWrongWordMessage;
+        SquareManager.OnExistingWordEntered -= ShowExistingWordMessage;
+        SquareManager.OnCorrectWordEntered -= () => Reset();
     }
 
     public void AddChar(char c)
     {
         _inputText = _inputText + c;
+
         _inputTextComp.text = _inputText;
 
         SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked, _pitchMultiplier);
         _pitchMultiplier += _pitchMultiplierStep;
+
+        if (_inputText.Length == 1)
+        {
+            _panelRectTransform.sizeDelta = new Vector2(110f, _panelRectTransform.sizeDelta.y);
+        }
+        else
+        {
+            _panelRectTransform.sizeDelta = new Vector2(110f + _inputTextComp.textBounds.size.x, _panelRectTransform.sizeDelta.y);
+        }
     }
 
 
@@ -46,19 +66,44 @@ public class LetterInput : MonoBehaviour
         _inputText = "";
         _inputTextComp.text = _inputText;
         _pitchMultiplier = 1f;
+        
+        _panelRectTransform.sizeDelta = new Vector2(0f, _panelRectTransform.sizeDelta.y);
     }
+
+    private void ShowWrongWordMessage(string word)
+    {
+        if (word.Length < 3)
+        {
+            Reset();
+            return;
+        }
+        _inputText = "";
+        _pitchMultiplier = 1f;
+        
+        _inputTextComp.text = $"СЛОВА «{word}» НЕТ В КРОССВОРДЕ";
+        _inputTextComp.ForceMeshUpdate();
+        _panelRectTransform.sizeDelta = new Vector2(110f + _inputTextComp.textBounds.size.x, _panelRectTransform.sizeDelta.y);
+
+    }
+
+    private void ShowExistingWordMessage(string word)
+    {
+        _inputText = "";
+        _pitchMultiplier = 1f;
+         _inputTextComp.text = $"СЛОВО «{word}» УЖЕ ОТКРЫТО";
+         _inputTextComp.ForceMeshUpdate();
+        _panelRectTransform.sizeDelta = new Vector2(110f + _inputTextComp.textBounds.size.x, _panelRectTransform.sizeDelta.y);
+    }
+
+
 
     private void Update()
     {
         if (Input.GetMouseButtonUp(0) && _inputText != "")
         {
             // check if word is valid then reset letter buttons
-            
-
             OnWordEnterEndWord?.Invoke(_inputText);
             OnWordEnterEnd?.Invoke();
-            Reset();
-
         }
 
     }

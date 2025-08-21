@@ -38,6 +38,9 @@ public class SquareManager : MonoBehaviour
 
     private LevelSO _levelSO;
     public Action OnLevelSOSetupped;
+    public static Action<string> OnWrongWordEntered;
+    public static Action<string> OnExistingWordEntered;
+    public static Action OnCorrectWordEntered;
 
 
     private Dictionary<int, Square> _idToSquareDict = new();
@@ -152,7 +155,7 @@ public class SquareManager : MonoBehaviour
             _guessedWordsDictionary.Add(word, false);
         }
 
-        SoundManager.Instance.Play(SoundManager.SoundInfoName.levelBegin);
+        SoundManager.Instance.Play(SoundManager.SoundInfoName.levelBegin,0.6f);
 
 
         OnLevelSOSetupped?.Invoke();
@@ -165,7 +168,7 @@ public class SquareManager : MonoBehaviour
 
         if (IsWordAlreadyGuessed(word))
         {
-            Debug.Log("Word " + word + " already guessed!");
+            OnExistingWordEntered?.Invoke(word);
             SoundManager.Instance.Play(SoundManager.SoundInfoName.wordNotGuessed, 1.2f);
 
             return;
@@ -175,37 +178,39 @@ public class SquareManager : MonoBehaviour
         if (_levelSO.WordsPositions.TryGetValue(word, out ids)) // word guessed
         {
             StartCoroutine(SetSquaresAsGuessed(ids));
+            CorrectWordBlink();
             _guessedWordsDictionary[word] = true;
+            OnCorrectWordEntered?.Invoke();
 
             _numOfWords--;
 
 
-            if (_numOfWords == 0)
+            if (_numOfWords == 0) // end of the level
             {
-                LevelCompleteBlink();
+                SoundManager.Instance.Play(SoundManager.SoundInfoName.levelEnd, 0.3f);
                 StartCoroutine(InitializeGameEndBehaviourWithDelay());
             }
         }
         else
         {
-            Debug.Log("No such word: " + word);
+            OnWrongWordEntered?.Invoke(word);
             SoundManager.Instance.Play(SoundManager.SoundInfoName.wordNotGuessed);
 
         }
     }
 
-    private void LevelCompleteBlink()
+    private void CorrectWordBlink()
     {
         TweenFloat.Create()
         .Origin(0f)
-        .Destination(0.06f)
-        .Duration(0.33f)
-        .Easing(Ease.Linear)
+        .Destination(0.05f)
+        .Duration(0.35f)
+        .Easing(Ease.Quad)
         .Condition(tween => tween.ExecutionCount < 2)
         .Loop(TweenLoop.YoYo)
         .OnUpdate(tween => _levelEndBlinkImage.color = new Color(_levelEndBlinkImage.color.r, _levelEndBlinkImage.color.g, _levelEndBlinkImage.color.b, tween.Value))
         .Start();
-        SoundManager.Instance.Play(SoundManager.SoundInfoName.levelEnd);
+        SoundManager.Instance.Play(SoundManager.SoundInfoName.levelEnd, UnityEngine.Random.Range(0.6f, 0.66f));
     }
 
     IEnumerator InitializeGameEndBehaviourWithDelay()

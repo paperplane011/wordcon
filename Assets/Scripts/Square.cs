@@ -61,7 +61,7 @@ public class Square : MonoBehaviour
         {
             TweenFloat.Create()
         .Origin(0)
-        .Destination(10f)
+        .Destination(15f)
         .Duration(0.2f)
         .Easing(Ease.Linear)
         .Loop(TweenLoop.YoYo)

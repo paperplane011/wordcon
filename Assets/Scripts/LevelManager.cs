@@ -47,16 +47,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    void OnEnable()
-    {
-        CanvasEventBus.OnLevelsEnd += ShuffleLevels;
-    }
-
-    void OnDisable()
-    {
-        CanvasEventBus.OnLevelsEnd -= ShuffleLevels;
-    }
-
+    
     public bool TryGetLevelSOByLevelNum(int levelNum, out LevelSO levelSO)
     {
         levelNum--;
@@ -76,29 +67,7 @@ public class LevelManager : MonoBehaviour
         return _levelsList.Count;
     }
 
-    private void ShuffleLevels()
-    {
-        Shuffle(_levelsList);
-    }
-
-    public void Shuffle(List<LevelSO> list)
-    {
-        if (list == null || list.Count <= 1) return;
-        
-        for (int i = list.Count - 1; i > 0; i--)
-        {
-            int randomIndex = Random.Range(0, i + 1);
-            
-            // Меняем элементы местами
-            LevelSO temp = list[i];
-            list[i] = list[randomIndex];
-            list[randomIndex] = temp;
-        }
-    }
-
-
-
-
+    
 
     [Button("Fill Levels List")]
     private void GetAllLevelSOs()

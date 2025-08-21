@@ -222,16 +222,12 @@ public class CanvasManager : MonoBehaviour
         else
         {
             LoadCanvasGroup(CanvasType.LevelsEndInfo);
+            SoundManager.Instance.Play(SoundManager.SoundInfoName.levelEnd, 0.15f);
             CanvasEventBus.OnLevelsEnd?.Invoke();
         }
         
     }
 
-    public void OnLevelsEndBehaviour()
-    {
-        LoadCanvasGroup(CanvasType.LevelsEndInfo, LoadCanvasMode.Additive);
-        CanvasEventBus.OnLevelsEnd?.Invoke();
-    }
 
 
 }
