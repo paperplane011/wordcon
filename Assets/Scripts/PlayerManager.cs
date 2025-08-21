@@ -18,7 +18,7 @@ namespace YG
 public class PlayerManager : MonoBehaviour
 {
 
-    [SerializeField]
+    public static Action OnHintAmountChangedAfterUsage;
 
 
     private static PlayerManager _instance;
@@ -62,7 +62,7 @@ public class PlayerManager : MonoBehaviour
     {
         CanvasEventBus.OnGameEnd += GameEndBehaviour;
         HintButton.OnHintWordUsed += OnHintWordUsed;
-        HintButton.OnHintLetterUsed += OnHintLetterUsed;
+        Square.OnSquareClickedAfterHintUsed += OnHintLetterUsed;
         YG2.onDefaultSaves += EmptySavesBehaviour;
         CanvasEventBus.OnLevelsEnd += OnLevelEndBehavior;
 
@@ -73,7 +73,7 @@ public class PlayerManager : MonoBehaviour
     {
         CanvasEventBus.OnGameEnd -= GameEndBehaviour;
         HintButton.OnHintWordUsed -= OnHintWordUsed;
-        HintButton.OnHintLetterUsed -= OnHintLetterUsed;
+        Square.OnSquareClickedAfterHintUsed -= OnHintLetterUsed;
         YG2.onDefaultSaves -= EmptySavesBehaviour;
         CanvasEventBus.OnLevelsEnd -= OnLevelEndBehavior;
 
@@ -82,11 +82,13 @@ public class PlayerManager : MonoBehaviour
     private void OnHintWordUsed()
     {
         YG2.saves.hintAmountWord--;
+        OnHintAmountChangedAfterUsage?.Invoke();
     }
 
     private void OnHintLetterUsed()
     {
         YG2.saves.hintAmountLetter--;
+        OnHintAmountChangedAfterUsage?.Invoke();
     }
 
 

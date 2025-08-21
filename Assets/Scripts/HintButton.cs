@@ -34,6 +34,9 @@ public class HintButton : MonoBehaviour
         _button.onClick.AddListener(Clicked);
         ProgressBar.OnProgressBarReset += ShowAndIncrease;
         CanvasEventBus.OnGameLoaded += UpdateHintAmount;
+
+        PlayerManager.OnHintAmountChangedAfterUsage += UpdateHintAmount;
+        YG2.onCloseRewardedAdv += AddHintsAfterRewardedShow;
     }
 
     void OnDisable()
@@ -41,6 +44,9 @@ public class HintButton : MonoBehaviour
         _button.onClick.RemoveAllListeners();
         ProgressBar.OnProgressBarReset -= ShowAndIncrease;
         CanvasEventBus.OnGameLoaded -= UpdateHintAmount;
+
+        PlayerManager.OnHintAmountChangedAfterUsage -= UpdateHintAmount;
+        YG2.onCloseRewardedAdv -= AddHintsAfterRewardedShow;
     }
 
     void Start()
@@ -60,11 +66,11 @@ public class HintButton : MonoBehaviour
             _adIconCanvasGroup.alpha = 1f;
             if (_isWordHint)
             {
-                _text.text = "+1";
+                _text.text = "+2";
             }
             else
             {
-                _text.text = "+2";
+                _text.text = "+3";
             }
             
         }
@@ -104,14 +110,17 @@ public class HintButton : MonoBehaviour
     private void AddHintsForAd()
     {
         YG2.RewardedAdvShow("0");
+    }
 
+    private void AddHintsAfterRewardedShow()
+    {
         if (_isWordHint)
         {
-            YG2.saves.hintAmountWord += 1;
+            YG2.saves.hintAmountWord += 2;
         }
         else
         {
-            YG2.saves.hintAmountLetter += 2;
+            YG2.saves.hintAmountLetter += 3;
         }
         
         YG2.SaveProgress();
@@ -122,7 +131,7 @@ public class HintButton : MonoBehaviour
 
     private void TryToUseHintWord()
     {
-        
+
         if (!SquareManager.Instance.CanShowRandomWord()) return;
         SquareManager.Instance.ShowRandomWord();
         OnHintWordUsed?.Invoke();
@@ -164,11 +173,13 @@ public class HintButton : MonoBehaviour
             {
                 if (_isWordHint)
                 {
-                    _text.text = "+1";
+                    if (_doesHaveHints) _text.text += "+1";
+                    else _text.text = "0+1";
                 }
                 else
                 {
-                    _text.text = "+2";
+                    if (_doesHaveHints) _text.text += "+2";
+                    else _text.text = "0+1";
                 }
                 SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked, 1.3f);
                 flag = true;

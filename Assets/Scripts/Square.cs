@@ -36,6 +36,7 @@ public class Square : MonoBehaviour
         _button.onClick.AddListener(ClickedAfterLetterHintUsed);
         HintButton.OnHintLetterUsed += OnHintLetterUsed;
         OnSquareClickedAfterHintUsed += () => _button.interactable = false;
+        ShutterPanel.OnHintCanceled += () => _button.interactable = false;
         
     }
 
@@ -44,6 +45,7 @@ public class Square : MonoBehaviour
         _button.onClick.RemoveAllListeners();
         HintButton.OnHintLetterUsed -= OnHintLetterUsed;
         OnSquareClickedAfterHintUsed -= () => _button.interactable = false;
+        ShutterPanel.OnHintCanceled -= () => _button.interactable = false;
     }
 
 
@@ -56,14 +58,14 @@ public class Square : MonoBehaviour
 
     private void OnHintLetterUsed()
     {
-        if(!_isLetterGuessed) _button.interactable = true;
+        if(!_isLetterGuessed & !_isEmpty) _button.interactable = true;
     }
 
     private void ClickedAfterLetterHintUsed()
     {
         SetGuessed(true);
         SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked);
-        
+
         OnSquareClickedAfterHintUsed?.Invoke();
     }
     

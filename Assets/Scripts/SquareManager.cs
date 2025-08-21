@@ -78,16 +78,16 @@ public class SquareManager : MonoBehaviour
 
     void OnEnable()
     {
-        LetterInput.OnWordEnterEndWord += ShowWordIfCorrect;
+        LetterInput.OnWordEnterEndWord += (word) => ShowWordIfCorrect(word);
         CanvasEventBus.OnGameLoaded += OnGameCanvasLoadedBehaviour;
-        Square.OnSquareClickedAfterHintUsed += OnSquareClickedAfterLetterHintUsed;
+        Square.OnSquareClickedAfterHintUsed += CheckGuessedSquaresForWords;
     }
 
     void OnDisable()
     {
-        LetterInput.OnWordEnterEndWord -= ShowWordIfCorrect;
+        LetterInput.OnWordEnterEndWord -= (word) => ShowWordIfCorrect(word);
         CanvasEventBus.OnGameLoaded -= OnGameCanvasLoadedBehaviour;
-        Square.OnSquareClickedAfterHintUsed -= OnSquareClickedAfterLetterHintUsed;
+        Square.OnSquareClickedAfterHintUsed -= CheckGuessedSquaresForWords;
     }
 
     private void OnGameCanvasLoadedBehaviour()
@@ -163,7 +163,7 @@ public class SquareManager : MonoBehaviour
     }
 
 
-    public void ShowWordIfCorrect(string word)
+    public void ShowWordIfCorrect(string word, bool isHintWord = false)
     {
         word = word.ToUpper();
 
@@ -179,7 +179,7 @@ public class SquareManager : MonoBehaviour
         int[] ids;
         if (_levelSO.WordsPositions.TryGetValue(word, out ids)) // correct word
         {
-            StartCoroutine(SetSquaresAsGuessed(ids));
+            StartCoroutine(SetSquaresAsGuessed(ids, isHintWord));
             CorrectWordBlink();
             _guessedWordsDictionary[word] = true;
             OnCorrectWordEntered?.Invoke();
@@ -222,7 +222,7 @@ public class SquareManager : MonoBehaviour
 
     }
 
-    IEnumerator SetSquaresAsGuessed(int[] ids)
+    IEnumerator SetSquaresAsGuessed(int[] ids, bool isWordHint = false)
     {
 
         foreach (var id in ids)
@@ -231,6 +231,8 @@ public class SquareManager : MonoBehaviour
 
             SetSquareAsGuessed(id);
         }
+
+        if (isWordHint) CheckGuessedSquaresForWords();
     }
 
     private void SetSquareAsGuessed(int id)
@@ -239,10 +241,6 @@ public class SquareManager : MonoBehaviour
         SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked);
     }
 
-    private void OnSquareClickedAfterLetterHintUsed()
-    {
-        CheckGuessedSquaresForWords();
-    }
 
     private void CheckGuessedSquaresForWords()
     {
@@ -311,7 +309,7 @@ public class SquareManager : MonoBehaviour
         {
             if (_guessedWordsDictionary[word] == false)
             {
-                ShowWordIfCorrect(word);
+                ShowWordIfCorrect(word, true);
                 return;
             }
         }

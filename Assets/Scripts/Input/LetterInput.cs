@@ -31,6 +31,7 @@ public class LetterInput : MonoBehaviour
         SquareManager.OnWrongWordEntered += ShowWrongWordMessage;
         SquareManager.OnExistingWordEntered += ShowExistingWordMessage;
         SquareManager.OnCorrectWordEntered += () => Reset();
+        ShutterPanel.OnHintCanceled += () => Reset();
 
         HintButton.OnHintLetterUsed += ShowLetterHintMessage;
         Square.OnSquareClickedAfterHintUsed += () => Reset();
@@ -42,6 +43,7 @@ public class LetterInput : MonoBehaviour
         SquareManager.OnWrongWordEntered -= ShowWrongWordMessage;
         SquareManager.OnExistingWordEntered -= ShowExistingWordMessage;
         SquareManager.OnCorrectWordEntered -= () => Reset();
+        ShutterPanel.OnHintCanceled -= () => Reset();
 
         HintButton.OnHintLetterUsed -= ShowLetterHintMessage;
         Square.OnSquareClickedAfterHintUsed -= () => Reset();
@@ -106,7 +108,7 @@ public class LetterInput : MonoBehaviour
         _inputText = "";
         _pitchMultiplier = 1f;
 
-        _inputTextComp.text = $"НАЖМИТЕ НА БУКВУ КОТОРУЮ ХОТИТЕ ОТКРЫТЬ";
+        _inputTextComp.text = $"ВЫБЕРИТЕ БУКВУ ДЛЯ ОТКРЫТИЯ";
         _inputTextComp.ForceMeshUpdate();
         _panelRectTransform.sizeDelta = new Vector2(110f + _inputTextComp.textBounds.size.x, _panelRectTransform.sizeDelta.y);
     }
