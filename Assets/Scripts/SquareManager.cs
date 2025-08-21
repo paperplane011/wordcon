@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using AYellowpaper.SerializedCollections;
 using FronkonGames.TinyTween;
 using NaughtyAttributes;
 using UnityEngine;
@@ -81,12 +80,14 @@ public class SquareManager : MonoBehaviour
     {
         LetterInput.OnWordEnterEndWord += ShowWordIfCorrect;
         CanvasEventBus.OnGameLoaded += OnGameCanvasLoadedBehaviour;
+        Square.OnSquareClickedAfterHintUsed += OnSquareClickedAfterLetterHintUsed;
     }
 
     void OnDisable()
     {
         LetterInput.OnWordEnterEndWord -= ShowWordIfCorrect;
         CanvasEventBus.OnGameLoaded -= OnGameCanvasLoadedBehaviour;
+        Square.OnSquareClickedAfterHintUsed -= OnSquareClickedAfterLetterHintUsed;
     }
 
     private void OnGameCanvasLoadedBehaviour()
@@ -169,6 +170,7 @@ public class SquareManager : MonoBehaviour
         if (IsWordAlreadyGuessed(word))
         {
             OnExistingWordEntered?.Invoke(word);
+            StartCoroutine(SetSquaresAsGuessed(_levelSO.WordsPositions[word]));
             SoundManager.Instance.Play(SoundManager.SoundInfoName.wordNotGuessed, 1.2f);
 
             return;
@@ -227,14 +229,59 @@ public class SquareManager : MonoBehaviour
         {
             yield return new WaitForSeconds(0.1f);
 
-            if (!_idToSquareDict[id].GetIsGuessed())
+            SetSquareAsGuessed(id);
+        }
+    }
+
+    private void SetSquareAsGuessed(int id)
+    {
+        _idToSquareDict[id].SetGuessed(true);
+        SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked);
+    }
+
+    private void OnSquareClickedAfterLetterHintUsed()
+    {
+        CheckGuessedSquaresForWords();
+    }
+
+    private void CheckGuessedSquaresForWords()
+    {
+
+        foreach (var pair in _levelSO.WordsPositions) // take positions for one word
+        {
+            int[] ids = pair.Value;
+
+            bool isWordGuessed = true;
+            foreach (int id in ids) // check if squares on those positions are guessed
             {
-                _idToSquareDict[id].SetGuessed(true);
-
-                SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked);
-
+                if (!_idToSquareDict[id].GetIsGuessed())
+                {
+                    isWordGuessed = false;
+                }
             }
 
+            if (isWordGuessed)
+            {
+                Debug.Log("Word finded: " + pair.Key);
+                if (IsWordAlreadyGuessed(pair.Key)) continue;
+
+                CorrectWordBlink();
+                _guessedWordsDictionary[pair.Key] = true;
+                OnCorrectWordEntered?.Invoke();
+
+                _numOfWords--;
+
+
+                if (_numOfWords == 0) // end of the level
+                {
+                    SoundManager.Instance.Play(SoundManager.SoundInfoName.levelEnd, 0.3f);
+                    StartCoroutine(InitializeGameEndBehaviourWithDelay());
+                }
+            }
+            else
+            {
+                Debug.Log("No word finded: " + pair.Key);
+            }
         }
     }
 
