@@ -24,6 +24,8 @@ public class Square : MonoBehaviour
 
     public static Action OnSquareClickedAfterHintUsed;
 
+    private bool _canBeTweened = true;
+
 
 
     private void Awake()
@@ -53,6 +55,7 @@ public class Square : MonoBehaviour
     private void Start()
     {
         _button.interactable = false;
+        _canBeTweened = true;
         UpdateVisuals();
     }
 
@@ -92,8 +95,9 @@ public class Square : MonoBehaviour
         _isLetterGuessed = isGuessed;
         Vector3 _origPos = _rectTransform.anchoredPosition;
 
-        if (isGuessed)
+        if (isGuessed & _canBeTweened)
         {
+            _canBeTweened = false;
             TweenFloat.Create()
         .Origin(0)
         .Destination(15f)
@@ -102,6 +106,7 @@ public class Square : MonoBehaviour
         .Loop(TweenLoop.YoYo)
         .Condition(tween => tween.ExecutionCount < 2)
         .OnUpdate(tween => _rectTransform.anchoredPosition = new Vector3(_origPos.x, _origPos.y - tween.Value))
+        .OnEnd(tween => _canBeTweened = true)
         .Start();
         }
         

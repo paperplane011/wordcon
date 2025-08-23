@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
-using System.Threading.Tasks;
 
 public class LetterCircle : MonoBehaviour
 {

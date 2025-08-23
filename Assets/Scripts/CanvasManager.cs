@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using FronkonGames.TinyTween;
-using UnityEditor.Rendering;
 using UnityEngine;
 using YG;
 
@@ -200,11 +198,11 @@ public class CanvasManager : MonoBehaviour
         {
 
             TweenFloat.Create()
-            .Origin(2000f) 
-            .Destination(0f)
+            .Origin(0) 
+            .Destination(1920f)
             .Easing(Ease.Quart)
             .Duration(TweenSettings.Instance.ResultsCanvasFadeTime*1.7f)
-            .OnUpdate(tween => _resultsPanelRectTransform.sizeDelta = new Vector2(_resultsPanelRectTransform.sizeDelta.x, -tween.Value))
+            .OnUpdate(tween => _resultsPanelRectTransform.sizeDelta = new Vector2(_resultsPanelRectTransform.sizeDelta.x, tween.Value))
             .Start();
         }
 

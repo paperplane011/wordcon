@@ -18,6 +18,7 @@ public class SquareVisuals : MonoBehaviour
     private void Start()
     {
         _image.color = new Color(0f, 0f, 0f, 0f);
+        _text.text = "";
     }
 
     public void UpdateVisuals(bool isEmpty, string letter, bool isLetterGuessed)
@@ -28,6 +29,7 @@ public class SquareVisuals : MonoBehaviour
             _text.text = "";
             return;
         }
+
 
         if (isLetterGuessed)
         {
