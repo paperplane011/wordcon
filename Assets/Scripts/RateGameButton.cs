@@ -17,7 +17,8 @@ public class RateGameButton : MonoBehaviour
     void OnEnable()
     {
         _button.onClick.AddListener(Clicked);
-        YG2.onReviewSent += (bool s) => { if (s) Destroy(this.gameObject); };
+        YG2.onReviewSent += OnReviewSent;
+        
     }
 
     void OnDisable()
@@ -32,6 +33,11 @@ public class RateGameButton : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    private void OnReviewSent(bool isSuccess)
+    {
+        Destroy(this.gameObject);
     }
 
 

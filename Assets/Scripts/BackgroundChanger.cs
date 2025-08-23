@@ -3,6 +3,8 @@ using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 using FronkonGames.TinyTween;
+using YG;
+
 
 
 #if UNITY_EDITOR
@@ -47,6 +49,7 @@ public class BackgroundChanger : MonoBehaviour
 
     private void SetBG16x9ForBGNum(int bgNum)
     {
+        if (YG2.envir.device != YG2.Device.Desktop) return;
         Color mainColor = _colorArrayFor16x9BG[bgNum];
 
         TweenColor.Create()
