@@ -20,6 +20,8 @@ public class BackgroundChanger : MonoBehaviour
     [SerializeField] private Image _backImage;
     [SerializeField] private CanvasGroup _mainImageCanvasGroup;
     [SerializeField] private CanvasGroup _backImageCanvasGroup;
+    private RectTransform _mainImageRectTransform;
+    private RectTransform _backImageRectTransform;
 
     [SerializeField] private Image _mainBG16x9;
     [SerializeField] private Image _bordersBG16x9;
@@ -32,19 +34,55 @@ public class BackgroundChanger : MonoBehaviour
 
     private int _currentBackgroundNum = 0;
 
-
+    void Awake()
+    {
+        _mainImageRectTransform = _mainImage.GetComponent<RectTransform>();
+        _backImageRectTransform = _backImage.GetComponent<RectTransform>();
+    }
 
 
     void Start()
     {
         _currentBackgroundNum = PlayerManager.Instance.GetCurrentLevelNum()/5;
         SetBG16x9ForBGNum(_currentBackgroundNum);
+        SetupAnchors();
         if (PlayerManager.Instance.GetCurrentLevelNum() % 5 == 0) _currentBackgroundNum -= 1;
 
         _mainImage.sprite = _backgroundsList[_currentBackgroundNum];
         _mainImageCanvasGroup.alpha = 1;
         
         
+    }
+
+    private void SetupAnchors()
+    {
+        Debug.Log("is mobile : " + YG2.envir.isMobile);
+
+        if (YG2.envir.isMobile) // stretch
+        {
+            // 1. Устанавливаем якоря в противоположные углы родителя
+            // anchorMin (0,0) - нижний левый угол родителя
+            // anchorMax (1,1) - верхний правый угол родителя
+            _mainImageRectTransform.anchorMin = Vector2.zero;
+            _mainImageRectTransform.anchorMax = Vector2.one;
+
+            _backImageRectTransform.anchorMin = Vector2.zero;
+            _backImageRectTransform.anchorMax = Vector2.one;
+
+
+            // 2. Обнуляем ВСЕ отступы от краев
+            // offsetMin - отступы слева и снизу (Left, Bottom)
+            // offsetMax - отступы справа и сверху (-Right, -Top)
+            _mainImageRectTransform.offsetMin = Vector2.zero;
+            _mainImageRectTransform.offsetMax = Vector2.zero;
+
+            _backImageRectTransform.offsetMin = Vector2.zero;
+            _backImageRectTransform.offsetMax = Vector2.zero;
+        }
+        else // center
+        {
+
+        }
     }
 
     private void SetBG16x9ForBGNum(int bgNum)
@@ -60,9 +98,9 @@ public class BackgroundChanger : MonoBehaviour
         .OnUpdate(tween => _mainBG16x9.color = tween.Value)
         .Start();
 
-        
+
         Color.RGBToHSV(mainColor, out float h, out float s, out float v);
-        Color borderColor = Color.HSVToRGB(h, s, v+0.1f);
+        Color borderColor = Color.HSVToRGB(h, s, v + 0.1f);
 
         TweenColor.Create()
         .Origin(_bordersBG16x9.color)

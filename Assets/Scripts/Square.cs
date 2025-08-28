@@ -24,7 +24,9 @@ public class Square : MonoBehaviour
 
     public static Action OnSquareClickedAfterHintUsed;
 
-    private bool _canBeTweened = true;
+    private bool _canBeTweened = false;
+
+    private Vector3 _startPos;
 
 
 
@@ -39,6 +41,9 @@ public class Square : MonoBehaviour
         HintButton.OnHintLetterUsed += OnHintLetterUsed;
         OnSquareClickedAfterHintUsed += () => _button.interactable = false;
         ShutterPanel.OnHintCanceled += () => _button.interactable = false;
+        CanvasEventBus.OnGameLoaded += () => _rectTransform.anchoredPosition = _startPos;
+
+        CanvasEventBus.OnGameLoaded += () => _canBeTweened = true;
         
     }
 
@@ -48,6 +53,9 @@ public class Square : MonoBehaviour
         HintButton.OnHintLetterUsed -= OnHintLetterUsed;
         OnSquareClickedAfterHintUsed -= () => _button.interactable = false;
         ShutterPanel.OnHintCanceled -= () => _button.interactable = false;
+        CanvasEventBus.OnGameLoaded -= () => _rectTransform.anchoredPosition = _startPos;
+
+        CanvasEventBus.OnGameLoaded -= () => _canBeTweened = true;
     }
 
 
@@ -56,6 +64,7 @@ public class Square : MonoBehaviour
     {
         _button.interactable = false;
         _canBeTweened = true;
+        _startPos = _rectTransform.anchoredPosition;
         UpdateVisuals();
     }
 
@@ -97,7 +106,9 @@ public class Square : MonoBehaviour
 
         if (isGuessed & _canBeTweened)
         {
+            SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked);
             _canBeTweened = false;
+
             TweenFloat.Create()
         .Origin(0)
         .Destination(15f)
@@ -109,6 +120,8 @@ public class Square : MonoBehaviour
         .OnEnd(tween => _canBeTweened = true)
         .Start();
         }
+
+        
         
 
         UpdateVisuals();

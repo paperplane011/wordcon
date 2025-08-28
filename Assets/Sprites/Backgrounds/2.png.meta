@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 5cbaf35907c02b048b47e75a79005586
+guid: ef0414f826173a34f9d84656aad383fd
 labels:
 - Terrain
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5228394533532391126
-    second: ComfyUI_00209__0
+      213: 6600933547108997409
+    second: ComfyUI_00174__0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -39,7 +39,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -50,12 +50,12 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -113,14 +113,14 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 52
     textureCompression: 1
-    compressionQuality: 50
+    compressionQuality: 70
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -141,7 +141,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ComfyUI_00209__0
+      name: ComfyUI_00174__0
       rect:
         serializedVersion: 2
         x: 0
@@ -156,8 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a29253b7fd20177b0800000000000000
-      internalID: -5228394533532391126
+      spriteID: 129146d761a3b9b50800000000000000
+      internalID: 6600933547108997409
       vertices: []
       indices: 
       edges: []
@@ -176,7 +176,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ComfyUI_00209__0: -5228394533532391126
+      ComfyUI_00174__0: 6600933547108997409
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

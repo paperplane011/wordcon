@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 172e6504fd240c149931d07a672e3f8b
+guid: 3cec6bcba2da379449ae80121d6c405b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2047404096004635663
-    second: video-marketing_0
+      213: -4974691128028443999
+    second: white_pixel_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -111,9 +111,9 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
-    maxTextureSize: 64
+    maxTextureSize: 32
     resizeAlgorithm: 0
-    textureFormat: 52
+    textureFormat: 10
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: video-marketing_0
+      name: white_pixel_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 2
-        width: 64
-        height: 60
+        y: 0
+        width: 1
+        height: 1
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f0c390e7d27d96c10800000000000000
-      internalID: 2047404096004635663
+      spriteID: 1aac39ea6c856fab0800000000000000
+      internalID: -4974691128028443999
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      video-marketing_0: 2047404096004635663
+      white_pixel_0: -4974691128028443999
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

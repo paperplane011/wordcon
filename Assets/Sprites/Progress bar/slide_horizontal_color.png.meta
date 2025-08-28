@@ -111,14 +111,14 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
-    maxTextureSize: 2048
+    maxTextureSize: 128
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 48
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -144,7 +144,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 31
+        width: 30
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -152,9 +152,9 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 54c29cb95bd32f180800000000000000
+      spriteID: 3310b13973292534882639edd383690d
       internalID: -9083129648240841659
       vertices: []
       indices: 
@@ -164,9 +164,9 @@ TextureImporter:
       name: slide_horizontal_color_1
       rect:
         serializedVersion: 2
-        x: 31
+        x: 30
         y: 0
-        width: 130
+        width: 132
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -176,7 +176,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc756a45c23334f4897864f91980bfa9
+      spriteID: 1a16c42d98b0e734b9d1ab2481151b27
       internalID: 1041634050
       vertices: []
       indices: 
@@ -186,9 +186,9 @@ TextureImporter:
       name: slide_horizontal_color_2
       rect:
         serializedVersion: 2
-        x: 161
+        x: 162
         y: 0
-        width: 31
+        width: 30
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -198,7 +198,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2244afee7a494774d85437075f24cb1c
+      spriteID: b6352964d22ea22448bcffc0cc79039f
       internalID: -886714863
       vertices: []
       indices: 

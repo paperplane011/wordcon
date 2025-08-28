@@ -30,11 +30,12 @@ public class LetterInput : MonoBehaviour
         LetterButton.OnLetterButtonPressed += AddChar;
         SquareManager.OnWrongWordEntered += ShowWrongWordMessage;
         SquareManager.OnExistingWordEntered += ShowExistingWordMessage;
-        SquareManager.OnCorrectWordEntered += () => Reset();
-        ShutterPanel.OnHintCanceled += () => Reset();
+        SquareManager.OnCorrectWordEntered += Reset;
+        ShutterPanel.OnHintCanceled += Reset;
+        CanvasEventBus.OnGameLoaded += Reset;
 
         HintButton.OnHintLetterUsed += ShowLetterHintMessage;
-        Square.OnSquareClickedAfterHintUsed += () => Reset();
+        Square.OnSquareClickedAfterHintUsed += Reset;
     }
 
     void OnDisable()
@@ -42,11 +43,12 @@ public class LetterInput : MonoBehaviour
         LetterButton.OnLetterButtonPressed -= AddChar;
         SquareManager.OnWrongWordEntered -= ShowWrongWordMessage;
         SquareManager.OnExistingWordEntered -= ShowExistingWordMessage;
-        SquareManager.OnCorrectWordEntered -= () => Reset();
-        ShutterPanel.OnHintCanceled -= () => Reset();
+        SquareManager.OnCorrectWordEntered -= Reset;
+        ShutterPanel.OnHintCanceled -= Reset;
+        CanvasEventBus.OnGameLoaded -= Reset;
 
         HintButton.OnHintLetterUsed -= ShowLetterHintMessage;
-        Square.OnSquareClickedAfterHintUsed -= () => Reset();
+        Square.OnSquareClickedAfterHintUsed -= Reset;
     }
 
     public void AddChar(char c)

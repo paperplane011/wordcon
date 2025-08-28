@@ -238,7 +238,7 @@ public class SquareManager : MonoBehaviour
     private void SetSquareAsGuessed(int id)
     {
         _idToSquareDict[id].SetGuessed(true);
-        SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked);
+        //SoundManager.Instance.Play(SoundManager.SoundInfoName.letterButtonClicked);
     }
 
 
