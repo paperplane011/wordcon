@@ -23,10 +23,7 @@ public class BackgroundChanger : MonoBehaviour
     private RectTransform _mainImageRectTransform;
     private RectTransform _backImageRectTransform;
 
-    [SerializeField] private Image _mainBG16x9;
-    [SerializeField] private Image _bordersBG16x9;
 
-    [SerializeField] private Color[] _colorArrayFor16x9BG;
 
     [SerializeField]
     [ReadOnly]
@@ -44,7 +41,7 @@ public class BackgroundChanger : MonoBehaviour
     void Start()
     {
         _currentBackgroundNum = PlayerManager.Instance.GetCurrentLevelNum()/5;
-        SetBG16x9ForBGNum(_currentBackgroundNum);
+       
         SetupAnchors();
         if (PlayerManager.Instance.GetCurrentLevelNum() % 5 == 0) _currentBackgroundNum -= 1;
 
@@ -56,8 +53,7 @@ public class BackgroundChanger : MonoBehaviour
 
     private void SetupAnchors()
     {
-        Debug.Log("is mobile : " + YG2.envir.isMobile);
-
+        
         if (YG2.envir.isMobile) // stretch
         {
             // 1. Устанавливаем якоря в противоположные углы родителя
@@ -79,38 +75,9 @@ public class BackgroundChanger : MonoBehaviour
             _backImageRectTransform.offsetMin = Vector2.zero;
             _backImageRectTransform.offsetMax = Vector2.zero;
         }
-        else // center
-        {
-
-        }
     }
 
-    private void SetBG16x9ForBGNum(int bgNum)
-    {
-        if (YG2.envir.device != YG2.Device.Desktop) return;
-        Color mainColor = _colorArrayFor16x9BG[bgNum];
-
-        TweenColor.Create()
-        .Origin(_mainBG16x9.color)
-        .Destination(mainColor)
-        .Duration(TweenSettings.Instance.ProgressBarResetTime)
-        .Easing(Ease.Linear)
-        .OnUpdate(tween => _mainBG16x9.color = tween.Value)
-        .Start();
-
-
-        Color.RGBToHSV(mainColor, out float h, out float s, out float v);
-        Color borderColor = Color.HSVToRGB(h, s, v + 0.1f);
-
-        TweenColor.Create()
-        .Origin(_bordersBG16x9.color)
-        .Destination(borderColor)
-        .Duration(TweenSettings.Instance.ProgressBarResetTime)
-        .Easing(Ease.Linear)
-        .OnUpdate(tween => _bordersBG16x9.color = tween.Value)
-        .Start();
-
-    }
+    
 
     private void OnEnable()
     {
@@ -127,7 +94,7 @@ public class BackgroundChanger : MonoBehaviour
     private void Reset()
     {
         _currentBackgroundNum = 0;
-        SetBG16x9ForBGNum(_currentBackgroundNum);
+        
         _mainImage.sprite = _backgroundsList[_currentBackgroundNum];
         _mainImageCanvasGroup.alpha = 1;
     }
@@ -139,7 +106,7 @@ public class BackgroundChanger : MonoBehaviour
         _currentBackgroundNum++;
         if (_currentBackgroundNum >= _backgroundsList.Count) return;
 
-        SetBG16x9ForBGNum(_currentBackgroundNum);
+        
         _backImage.sprite = _backgroundsList[_currentBackgroundNum];
 
 

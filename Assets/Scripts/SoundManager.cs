@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class SoundManager : MonoBehaviour
         [HideInInspector] public AudioSource source;
     }
 
+    [SerializeField] private AudioMixerGroup _audioMixerGroup;
     [SerializeField] private List<SoundInfo> soundsList = new List<SoundInfo>(); 
     private Dictionary<SoundInfoName, SoundInfo> soundDictionary = new Dictionary<SoundInfoName, SoundInfo>();
 
@@ -66,6 +68,7 @@ public class SoundManager : MonoBehaviour
         foreach (SoundInfo sound in soundsList)
         {
             sound.source = gameObject.AddComponent<AudioSource>();
+            sound.source.outputAudioMixerGroup = _audioMixerGroup;
             sound.source.clip = sound.clip;
             sound.source.volume = sound.volume;
             sound.source.pitch = sound.pitch;
