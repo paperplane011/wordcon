@@ -53,8 +53,8 @@ MonoBehaviour:
     loadAdv: 0
     testFailAds: 0
   Templates:
-    logoImageFormat: 0
-    backgroundImgFormat: 3
+    logoImageFormat: 1
+    backgroundImgFormat: 2
     gradientBackgroundByLoadGame:
       radial: 0
       angleInclination: 140

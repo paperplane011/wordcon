@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: a159c1866770db54a8641f5abc5f6f8d
+guid: bc8b0cb92282e40499fe509bfb90d467
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7918515896271131174
-    second: icon_high_res_0
+      213: -8390893324806737313
+    second: sadslov_tiny_0
+  - first:
+      213: -8111475234439675418
+    second: sadslov_tiny_1
+  - first:
+      213: 3029047838422065608
+    second: sadslov_tiny_2
+  - first:
+      213: 1613299175464805981
+    second: sadslov_tiny_3
+  - first:
+      213: -7726359723200396746
+    second: sadslov_tiny_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,14 +58,14 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -72,10 +84,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -87,20 +99,7 @@ TextureImporter:
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 12
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -113,9 +112,9 @@ TextureImporter:
     buildTarget: WebGL
     maxTextureSize: 512
     resizeAlgorithm: 0
-    textureFormat: 52
+    textureFormat: 50
     textureCompression: 1
-    compressionQuality: 50
+    compressionQuality: 69
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 1
@@ -123,7 +122,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: iOS
+    buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -139,13 +138,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: icon_high_res_0
+      name: sadslov_tiny_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 384
-        height: 512
+        x: 131
+        y: 470
+        width: 548
+        height: 250
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +153,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: adda9761fb7cb1290800000000000000
-      internalID: -7918515896271131174
+      spriteID: f52b2ba5afe8d8b80800000000000000
+      internalID: -8390893324806737313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sadslov_tiny_1
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 258
+        width: 155
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e148de20404e6f80800000000000000
+      internalID: -8111475234439675418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sadslov_tiny_2
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 258
+        width: 155
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c1efc0e5f6590a20800000000000000
+      internalID: 3029047838422065608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sadslov_tiny_3
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 88
+        width: 155
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d56a20e6d07936610800000000000000
+      internalID: 1613299175464805981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sadslov_tiny_4
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 88
+        width: 155
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63241cb84c476c490800000000000000
+      internalID: -7726359723200396746
       vertices: []
       indices: 
       edges: []
@@ -174,7 +261,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      icon_high_res_0: -7918515896271131174
+      sadslov_tiny_0: -8390893324806737313
+      sadslov_tiny_1: -8111475234439675418
+      sadslov_tiny_2: 3029047838422065608
+      sadslov_tiny_3: 1613299175464805981
+      sadslov_tiny_4: -7726359723200396746
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
