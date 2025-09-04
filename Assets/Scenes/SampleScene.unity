@@ -4690,7 +4690,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: 1
-    clip: {fileID: 8300000, guid: 0779f7e5c84df8344baab4924a72b4c5, type: 3}
+    clip: {fileID: 8300000, guid: 9d1304b8054b8664ba333a2b6e950b0a, type: 3}
     volume: 0.2
     pitch: 1
     loop: 0
@@ -6100,6 +6100,7 @@ GameObject:
   - component: {fileID: 703478729}
   - component: {fileID: 703478732}
   - component: {fileID: 703478731}
+  - component: {fileID: 703478733}
   m_Layer: 5
   m_Name: press to play button
   m_TagString: Untagged
@@ -6223,6 +6224,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &703478733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703478727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e53b00b94d71054c8b9755ab841e7fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &707798809
 PrefabInstance:
   m_ObjectHideFlags: 0
