@@ -4684,7 +4684,7 @@ MonoBehaviour:
   _audioMixerGroup: {fileID: 24300002, guid: 96a7703d19fd39d44af550e7af99c61d, type: 2}
   soundsList:
   - name: 0
-    clip: {fileID: 8300000, guid: 7f3acf6de14adf049884c8297e9da909, type: 3}
+    clip: {fileID: 8300000, guid: a00ac0a3756f77549ad0b7cc2c0918cb, type: 3}
     volume: 0.35
     pitch: 1
     loop: 0
@@ -4702,13 +4702,13 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: 3
-    clip: {fileID: 8300000, guid: 6d5da4c56998b0847a222f569f5af75e, type: 3}
+    clip: {fileID: 8300000, guid: dbff5bebe92a26b45821fb1991a7d3ae, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: 4
-    clip: {fileID: 8300000, guid: 651328b8f4f97dd4abf57c86dafefa87, type: 3}
+    clip: {fileID: 8300000, guid: c6075b3341a903c48a906cd049935915, type: 3}
     volume: 0.12
     pitch: 1
     loop: 0
